@@ -1,13 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<{ message: string; type: "success" | "error" | "" }>({ message: "", type: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setStatus({ message: "Sending...", type: "" });
 
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
@@ -25,14 +28,14 @@ export default function Contact() {
       });
 
       if (res.ok) {
-        alert("Message sent successfully!");
+        setStatus({ message: "Message sent successfully!", type: "success" });
         form.reset();
       } else {
-        alert("Failed to send message.");
+        setStatus({ message: "Failed to send message.", type: "error" });
       }
     } catch (err) {
       console.error(err);
-      alert("Error sending message.");
+      setStatus({ message: "Error sending message.", type: "error" });
     } finally {
       setLoading(false);
     }
@@ -41,18 +44,13 @@ export default function Contact() {
   return (
     <div className="relative w-full py-20 px-6 sm:px-10 overflow-hidden">
       <div className="max-w-3xl mx-auto text-center relative z-10">
-        {/* Heading */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-cyan-400 mb-4">
           Get in Touch
         </h2>
-
-        {/* Subheading */}
         <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-12">
-          Have a project idea or just want to say hi? Fill out the form and I’ll
-          get back to you as soon as possible.
+          Have a project idea or just want to say hi? Fill out the form and I’ll get back to you as soon as possible.
         </p>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6 text-left">
           <div className="flex flex-col space-y-4">
             <input
@@ -87,7 +85,6 @@ export default function Contact() {
             />
           </div>
 
-          {/* Button */}
           <button
             type="submit"
             disabled={loading}
@@ -102,6 +99,17 @@ export default function Contact() {
           >
             {loading ? "Sending..." : "Send Message 🚀"}
           </button>
+
+          {/* Inline status message */}
+          {status.message && (
+            <div className={`mt-3 flex items-center gap-2 text-sm sm:text-base md:text-lg ${
+              status.type === "success" ? "text-green-500" : status.type === "error" ? "text-red-500" : "text-gray-400"
+            }`}>
+              {status.type === "success" && <FaCheckCircle />}
+              {status.type === "error" && <FaTimesCircle />}
+              {status.message}
+            </div>
+          )}
         </form>
       </div>
 
