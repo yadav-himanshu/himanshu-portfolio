@@ -8,19 +8,45 @@ import { FaHome, FaUser, FaProjectDiagram, FaEnvelope, FaBars, FaTimes } from "r
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
+  const navLinks = [
+    { id: "home", label: "Home", icon: <FaHome /> },
+    { id: "about", label: "About", icon: <FaUser /> },
+    { id: "showcase", label: "Showcase", icon: <FaProjectDiagram /> },
+    { id: "contact", label: "Contact", icon: <FaEnvelope /> },
+  ];
+
+  // Scroll spy + header background
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+
+      const scrollPosition = window.scrollY + 150; // offset to highlight a bit early
+      for (const link of navLinks) {
+        const section = document.getElementById(link.id);
+        if (section) {
+          const top = section.offsetTop;
+          const bottom = top + section.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < bottom) {
+            setActiveSection(link.id);
+            break;
+          }
+        }
+      }
+    };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
-    { href: "/#home", label: "Home", icon: <FaHome /> },
-    { href: "/#about", label: "About", icon: <FaUser /> },
-    { href: "/#showcase", label: "Showcase", icon: <FaProjectDiagram /> },
-    { href: "/#contact", label: "Contact", icon: <FaEnvelope /> },
-  ];
+  const handleClick = (id: string) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+    setMenuOpen(false); // close mobile menu on click
+  };
 
   return (
     <header
@@ -42,13 +68,15 @@ const Header = () => {
         {/* Desktop Nav */}
         <ul className="hidden md:flex space-x-8 font-medium text-gray-900 dark:text-gray-100 items-center">
           {navLinks.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className="hover:text-blue-500 transition-colors duration-300"
+            <li key={link.id}>
+              <button
+                onClick={() => handleClick(link.id)}
+                className={`hover:text-blue-500 transition-colors ${
+                  activeSection === link.id ? "text-cyan-500 font-bold" : ""
+                }`}
               >
                 {link.label}
-              </Link>
+              </button>
             </li>
           ))}
         </ul>
@@ -75,14 +103,15 @@ const Header = () => {
         <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-700 px-6 py-4 font-medium text-gray-900 dark:text-gray-100 shadow-lg transition-all duration-300">
           <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="flex items-center gap-2 py-3 hover:text-blue-500 transition-colors"
+              <button
+                key={link.id}
+                onClick={() => handleClick(link.id)}
+                className={`flex items-center gap-2 py-3 hover:text-blue-500 transition-colors ${
+                  activeSection === link.id ? "text-cyan-500 font-bold" : ""
+                }`}
               >
                 {link.icon} {link.label}
-              </Link>
+              </button>
             ))}
           </div>
         </div>
