@@ -5,9 +5,9 @@ body {
   @apply bg-white text-gray-900 transition-colors duration-300 ease-in-out;
 }
 
-.dark body {
+/* .dark body {
   @apply bg-black text-gray-100 transition-colors duration-300 ease-in-out;
-}
+} */
 
 /* Smooth link hover globally */
 a {
