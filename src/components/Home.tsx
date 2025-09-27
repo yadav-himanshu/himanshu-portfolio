@@ -1,5 +1,5 @@
 "use client";
-import { FaFileDownload, FaEnvelope } from "react-icons/fa";
+import { FaFileDownload, FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 export default function HomeSection() {
@@ -12,9 +12,10 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col justify-center items-center text-center px-6 py-20"
+      className="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 py-10 gap-10"
     >
-      <div className="flex flex-col items-center text-center space-y-6">
+      {/* Left Column: Profile + Social */}
+      <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 md:w-1/3">
         {/* Profile Image */}
         <img
           src="/profilePic.jpg"
@@ -24,6 +25,28 @@ export default function HomeSection() {
             ${loaded ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
         />
 
+        {/* Social Media */}
+        <div
+          className={`hidden md:flex flex-col items-center md:items-start gap-3 mt-2 transition-all duration-1000 ease-out 
+            ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
+          <h3 className="text-gray-400 dark:text-gray-500 text-sm font-medium">Connect with me</h3>
+          <div className="flex gap-4">
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+              <FaGithub size={24} className="text-gray-500 hover:text-cyan-500 transition-colors" />
+            </a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin size={24} className="text-gray-500 hover:text-cyan-500 transition-colors" />
+            </a>
+            <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer">
+              <FaTwitter size={24} className="text-gray-500 hover:text-cyan-500 transition-colors" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Column: Name, Subtitle, Summary, Buttons */}
+      <div className="flex flex-col items-center md:items-start text-center md:text-left md:w-2/3 space-y-4">
         {/* Name */}
         <h1
           className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold text-gray-900 dark:text-cyan-400 
@@ -44,15 +67,13 @@ export default function HomeSection() {
 
         {/* Quick Summary */}
         <p
-          className={`max-w-2xl text-sm sm:text-base md:text-lg
-             lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed 
+          className={`max-w-3xl text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed 
             transition-opacity duration-1000 ease-out delay-600 
             ${loaded ? "opacity-100" : "opacity-0"}`}
         >
-          I’m a detail-oriented Frontend Developer skilled in building responsive,
-          reusable, and user-centric web applications using React.js and Tailwind
-          CSS. I focus on creating optimized, scalable UI components for smooth
-          user experiences.
+          Frontend Developer with 2 years of experience building responsive and
+          scalable web applications using JavaScript, React, Next.js, Tailwind
+          CSS, Node.js, Express, MongoDB, and MUI.
         </p>
 
         {/* Action Buttons */}
@@ -82,6 +103,22 @@ export default function HomeSection() {
                        hover:scale-105 hover:shadow-lg flex items-center gap-2"
           >
             <FaEnvelope size={18} /> Contact Me
+          </a>
+        </div>
+
+        {/* Social Media for Mobile */}
+        <div
+          className={`flex gap-4 mt-4 md:hidden transition-all duration-1000 ease-out
+            ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
+          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+            <FaGithub size={24} className="text-gray-500 hover:text-cyan-500 transition-colors" />
+          </a>
+          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin size={24} className="text-gray-500 hover:text-cyan-500 transition-colors" />
+          </a>
+          <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer">
+            <FaTwitter size={24} className="text-gray-500 hover:text-cyan-500 transition-colors" />
           </a>
         </div>
       </div>
