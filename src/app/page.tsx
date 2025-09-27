@@ -3,8 +3,9 @@ import ContactForm from "../components/ContactForm";
 import Showcase from "@/components/Showcase";
 import HomeSection from "@/components/Home";
 import Footer from "@/components/footer";
-import About from "@/components/aboutSection/About";
+import About from "@/components/About";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
+import ToolsAndSkills from "@/components/SliderForSkillsAndTools";
 
 
 export default function Home() {
@@ -16,6 +17,9 @@ export default function Home() {
 
       <Section id="about">
         <About/>
+      </Section>
+      <Section id="skills">
+        <ToolsAndSkills/>
       </Section>
 
       <Section id="ExperienceTimeline">

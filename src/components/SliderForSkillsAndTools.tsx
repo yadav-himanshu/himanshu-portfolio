@@ -8,11 +8,10 @@ export default function ToolsAndSkills() {
   useEffect(() => setLoaded(true), []);
 
   return (
-    <>
+    <section id="skill" className="w-full max-w-[1200px] py-20 px-6 sm:px-12 mx-auto">
 
       {/* Skills Slider */}
-
-      <div className="mt-12">
+      <div>
         <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Skills
         </h3>
@@ -82,8 +81,6 @@ export default function ToolsAndSkills() {
       </div>
 
       {/* Styles for continuous sliders (scoped) */}
-
-      {/* Tools slider: add same .slider wrapper around the track as above */}
 
       <style jsx>{`
         /* put the speed on the wrapper to avoid scoping :root issues */
@@ -162,6 +159,6 @@ export default function ToolsAndSkills() {
           scrollbar-width: none;
         }
       `}</style>
-    </>
+    </section>
   );
 }

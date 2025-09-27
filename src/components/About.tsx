@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaLaptopCode, FaBriefcase, FaGraduationCap } from "react-icons/fa";
-import ToolsAndSkills from "./sliderForSkillsAndTools";
 import Link from "next/link";
 
 export default function About() {
@@ -10,7 +9,7 @@ export default function About() {
   useEffect(() => setLoaded(true), []);
 
   return (
-    <div className="w-full max-w-[1200px] py-20 px-6 sm:px-12 mx-auto">
+    <section id="about" className="w-full max-w-[1200px] py-20 px-6 sm:px-12 mx-auto">
       <div className="grid md:grid-cols-2 gap-10 items-start">
         {/* Left side: About Text */}
         <motion.div
@@ -113,11 +112,6 @@ export default function About() {
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Skills & Tools slider under About */}
-      <div className="mt-16">
-        <ToolsAndSkills />
-      </div>
-    </div>
+    </section>
   );
 }

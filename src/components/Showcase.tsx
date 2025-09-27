@@ -20,7 +20,7 @@ export default function Showcase() {
   const nextRef = useRef(null);
 
   return (
-    <section className="relative w-full py-16 px-4 md:px-8">
+    <section id="showcase" className="relative w-full py-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="flex flex-col gap-6 text-center mb-12">
