@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState<{ message: string; type: "success" | "error" | "" }>({ message: "", type: "" });
+  const [loaded, setLoaded] = useState(false);
+  const [status, setStatus] = useState<{ message: string; type: "success" | "error" | "" }>({
+    message: "",
+    type: "",
+  });
+
+  useEffect(() => {
+    setLoaded(true); // Trigger animations on mount
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,16 +50,31 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative w-full py-20 px-6 sm:px-10 overflow-hidden">
+    <section id="contact" className="relative w-full py-20 px-6 sm:px-10 overflow-hidden">
       <div className="max-w-3xl mx-auto text-center relative z-10">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-cyan-400 mb-4">
-          Get in Touch
+        {/* Heading */}
+        <h2
+          className={`text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-cyan-400 mb-4 transition-all duration-1000 ease-out ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
+          }`}
+        >
+          Let’s Connect
         </h2>
-        <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-12">
-          Have a project idea or just want to say hi? Fill out the form and I’ll get back to you as soon as possible.
+        <p
+          className={`text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-12 transition-all duration-1000 ease-out delay-200 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          Have an opportunity, idea, or project to discuss? Let’s connect and explore how I can help.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6 text-left">
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit}
+          className={`space-y-6 text-left transition-all duration-1000 ease-out delay-400 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
           <div className="flex flex-col space-y-4">
             <input
               type="text"
@@ -102,9 +125,15 @@ export default function Contact() {
 
           {/* Inline status message */}
           {status.message && (
-            <div className={`mt-3 flex items-center gap-2 text-sm sm:text-base md:text-lg ${
-              status.type === "success" ? "text-green-500" : status.type === "error" ? "text-red-500" : "text-gray-400"
-            }`}>
+            <div
+              className={`mt-3 flex items-center gap-2 text-sm sm:text-base md:text-lg transition-all duration-500 ${
+                status.type === "success"
+                  ? "text-green-500"
+                  : status.type === "error"
+                  ? "text-red-500"
+                  : "text-gray-400"
+              }`}
+            >
               {status.type === "success" && <FaCheckCircle />}
               {status.type === "error" && <FaTimesCircle />}
               {status.message}
@@ -116,6 +145,6 @@ export default function Contact() {
       {/* Decorative blurred circles */}
       <div className="absolute top-10 right-10 w-40 h-40 bg-cyan-400/30 dark:bg-cyan-600/20 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-10 left-10 w-40 h-40 bg-cyan-300/30 dark:bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
-    </div>
+    </section>
   );
 }
