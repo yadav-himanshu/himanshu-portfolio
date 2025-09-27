@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
-import { FaHome, FaUser, FaProjectDiagram, FaEnvelope, FaBars, FaTimes } from "react-icons/fa";
+// import ThemeToggle from "@/components/ThemeToggle";
+import { FaHome, FaUser, FaProjectDiagram, FaEnvelope, FaBars, FaTimes, FaCode } from "react-icons/fa";
+import { FaBriefcase } from "react-icons/fa6";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,6 +14,8 @@ const Header = () => {
   const navLinks = [
     { id: "home", label: "Home", icon: <FaHome /> },
     { id: "about", label: "About", icon: <FaUser /> },
+    { id: "skills", label: "Skills", icon: <FaCode/> },
+    { id: "ExperienceTimeline", label: "Experience", icon: <FaBriefcase /> }, 
     { id: "showcase", label: "Showcase", icon: <FaProjectDiagram /> },
     { id: "contact", label: "Contact", icon: <FaEnvelope /> },
   ];
@@ -83,7 +86,7 @@ const Header = () => {
 
         {/* Mobile & Theme Toggle */}
         <div className="flex items-center gap-4 md:hidden">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-gray-900 dark:text-gray-100 focus:outline-none"
@@ -93,9 +96,9 @@ const Header = () => {
         </div>
 
         {/* Desktop Theme Toggle */}
-        <div className="hidden md:flex">
+        {/* <div className="hidden md:flex">
           <ThemeToggle />
-        </div>
+        </div> */}
       </nav>
 
       {/* Mobile Dropdown */}
