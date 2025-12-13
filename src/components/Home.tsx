@@ -144,7 +144,7 @@ export default function HomeSection() {
           style={{ color: "var(--muted)" }}
         >
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/yadav-himanshu"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover-accent"
@@ -154,7 +154,7 @@ export default function HomeSection() {
           </a>
 
           <a
-            href="https://linkedin.com/in/yourusername"
+            href="https://linkedin.com/in/himanshu-yadav-0706a1137"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover-accent"
@@ -164,7 +164,7 @@ export default function HomeSection() {
           </a>
 
           <a
-            href="https://twitter.com/yourusername"
+            href="https://twitter.com/himanshu816y"
             target="_blank"
             rel="noopener noreferrer"
             className="transition-colors hover-accent"

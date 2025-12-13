@@ -56,7 +56,7 @@ export default function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       className={[
-        "fixed bottom-6 right-6 z-[9999]",
+        "fixed bottom-10 right-10 z-[9999]",
         "rounded-full px-4 py-3",
         "shadow-lg backdrop-blur",
         "transition hover:opacity-90",
