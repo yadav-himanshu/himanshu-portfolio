@@ -2,8 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// import ThemeToggle from "@/components/ThemeToggle";
-import { FaHome, FaUser, FaProjectDiagram, FaEnvelope, FaBars, FaTimes, FaCode } from "react-icons/fa";
+import {
+  FaHome,
+  FaUser,
+  FaProjectDiagram,
+  FaEnvelope,
+  FaBars,
+  FaTimes,
+  FaCode,
+} from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa6";
 
 const Header = () => {
@@ -14,8 +21,8 @@ const Header = () => {
   const navLinks = [
     { id: "home", label: "Home", icon: <FaHome /> },
     { id: "about", label: "About", icon: <FaUser /> },
-    { id: "skills", label: "Skills", icon: <FaCode/> },
-    { id: "ExperienceTimeline", label: "Experience", icon: <FaBriefcase /> }, 
+    { id: "skills", label: "Skills", icon: <FaCode /> },
+    { id: "ExperienceTimeline", label: "Experience", icon: <FaBriefcase /> },
     { id: "showcase", label: "Showcase", icon: <FaProjectDiagram /> },
     { id: "contact", label: "Contact", icon: <FaEnvelope /> },
   ];
@@ -25,7 +32,7 @@ const Header = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
 
-      const scrollPosition = window.scrollY + 150; // offset to highlight a bit early
+      const scrollPosition = window.scrollY + 150;
       for (const link of navLinks) {
         const section = document.getElementById(link.id);
         if (section) {
@@ -41,42 +48,63 @@ const Header = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleClick = (id: string) => {
     const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-    setMenuOpen(false); // close mobile menu on click
+    if (section) section.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
   };
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={[
+        "fixed top-0 left-0 w-full z-50 transition-all duration-300",
+        scrolled ? "backdrop-blur-md border-b" : "bg-transparent border-transparent",
+      ].join(" ")}
+      style={
         scrolled
-          ? "backdrop-blur-md border-b border-gray-300/40 dark:border-gray-700/40 bg-white/60 dark:bg-gray-900/60"
-          : "bg-transparent"
-      }`}
+          ? {
+              // replaces: bg-white/60 dark:bg-gray-900/60 + borders
+              backgroundColor: "color-mix(in srgb, var(--bg) 60%, transparent)",
+              borderColor: "var(--border-soft)",
+            }
+          : undefined
+      }
     >
       <nav className="container mx-auto flex justify-between items-center py-4 px-6">
         {/* Logo */}
         <Link
-          href="/#home"
+          href="/"
           className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 hover:opacity-90 transition-opacity"
         >
           &lt;Himanshu/&gt;
         </Link>
 
         {/* Desktop Nav */}
-        <ul className="hidden md:flex space-x-8 font-medium text-gray-900 dark:text-gray-100 items-center">
+        <ul
+          className="hidden md:flex space-x-8 font-medium items-center"
+          style={{ color: "var(--text)" }}
+        >
           {navLinks.map((link) => (
             <li key={link.id}>
               <button
                 onClick={() => handleClick(link.id)}
-                className={`hover:text-blue-500 transition-colors ${
-                  activeSection === link.id ? "text-cyan-500 font-bold" : ""
-                }`}
+                className={[
+                  "transition-colors",
+                  activeSection === link.id ? "font-bold" : "",
+                ].join(" ")}
+                style={{
+                  color: activeSection === link.id ? "#22d3ee" : "var(--text)", // cyan-400ish
+                }}
+                onMouseEnter={(e) => {
+                  if (activeSection !== link.id) e.currentTarget.style.color = "#3b82f6"; // blue-500
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color =
+                    activeSection === link.id ? "#22d3ee" : "var(--text)";
+                }}
               >
                 {link.label}
               </button>
@@ -84,34 +112,51 @@ const Header = () => {
           ))}
         </ul>
 
-        {/* Mobile & Theme Toggle */}
+        {/* Mobile Menu Button */}
         <div className="flex items-center gap-4 md:hidden">
-          {/* <ThemeToggle /> */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-gray-900 dark:text-gray-100 focus:outline-none"
+            className="focus:outline-none"
+            style={{ color: "var(--text)" }}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
             {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
         </div>
-
-        {/* Desktop Theme Toggle */}
-        {/* <div className="hidden md:flex">
-          <ThemeToggle />
-        </div> */}
       </nav>
 
       {/* Mobile Dropdown */}
       {menuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 border-t dark:border-gray-700 px-6 py-4 font-medium text-gray-900 dark:text-gray-100 shadow-lg transition-all duration-300">
-          <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700">
+        <div
+          className="md:hidden border-t px-6 py-4 font-medium shadow-lg transition-all duration-300"
+          style={{
+            backgroundColor: "var(--card-2)",
+            color: "var(--text)",
+            borderColor: "var(--border-soft)",
+          }}
+        >
+          <div
+            className="flex flex-col divide-y"
+            style={{ borderColor: "var(--border-soft)" }}
+          >
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleClick(link.id)}
-                className={`flex items-center gap-2 py-3 hover:text-blue-500 transition-colors ${
-                  activeSection === link.id ? "text-cyan-500 font-bold" : ""
-                }`}
+                className={[
+                  "flex items-center gap-2 py-3 transition-colors",
+                  activeSection === link.id ? "font-bold" : "",
+                ].join(" ")}
+                style={{
+                  color: activeSection === link.id ? "#22d3ee" : "var(--text)",
+                }}
+                onMouseEnter={(e) => {
+                  if (activeSection !== link.id) e.currentTarget.style.color = "#3b82f6";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color =
+                    activeSection === link.id ? "#22d3ee" : "var(--text)";
+                }}
               >
                 {link.icon} {link.label}
               </button>

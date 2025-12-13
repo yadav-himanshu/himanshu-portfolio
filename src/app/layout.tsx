@@ -1,6 +1,8 @@
 import "./globals.css";
 import Header from "@/components/Header";
 import { Inter, Poppins } from "next/font/google";
+// import Torch from "@/components/MouseEffect";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,8 +24,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body className="scroll-smooth">
+        {/* Skip to content (visible only when focused via keyboard) */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000]
+                     px-4 py-2 rounded-lg shadow-lg"
+          style={{
+            backgroundColor: "var(--card-2)",
+            color: "var(--text)",
+            border: "1px solid var(--border-soft)",
+          }}
+        >
+          Skip to content
+        </a>
+
         <Header />
-        <main className="pt-20">{children}</main>
+
+        <main id="main-content" className="pt-20">
+          {children}
+        </main>
+
+        {/* <Torch /> */}
+        <ThemeToggle />
       </body>
     </html>
   );

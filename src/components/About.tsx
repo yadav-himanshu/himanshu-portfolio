@@ -17,11 +17,17 @@ export default function About() {
           animate={{ opacity: loaded ? 1 : 0, y: 0 }}
           transition={{ duration: 0.9, ease: "easeOut" }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          <h2
+            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
+            style={{ color: "var(--text)" }}
+          >
             About Me
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <p
+            className="text-sm sm:text-base md:text-lg leading-relaxed mb-4"
+            style={{ color: "var(--muted-2)" }}
+          >
             Hey! I’m{" "}
             <strong className="text-cyan-600 dark:text-cyan-400">
               Himanshu Yadav
@@ -32,13 +38,19 @@ export default function About() {
             create modern and scalable user experiences.
           </p>
 
-          <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <p
+            className="text-sm sm:text-base md:text-lg leading-relaxed mb-4"
+            style={{ color: "var(--muted-2)" }}
+          >
             While my primary focus is frontend, I also have a working knowledge
             of <strong>Node.js</strong> and <strong>APIs</strong>, which helps
             me integrate the backend with the UI smoothly.
           </p>
 
-          <p className="text-sm sm:text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+          <p
+            className="text-sm sm:text-base md:text-lg leading-relaxed"
+            style={{ color: "var(--muted-2)" }}
+          >
             My toolkit includes <strong>Git/GitHub</strong> for collaboration,
             <strong> VS Code</strong> for development, and deployment platforms
             like <strong>Vercel</strong> and <strong>Netlify</strong>. I love
@@ -47,7 +59,7 @@ export default function About() {
           </p>
         </motion.div>
 
-        {/* Right side: Fancy Cards */}
+        {/* Right side: Cards */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: loaded ? 1 : 0, x: 0 }}
@@ -58,15 +70,17 @@ export default function About() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Link
               href="/skills-tools"
-              className="flex items-center gap-4 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 
-                         bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="flex items-center gap-4 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer surface-2"
             >
               <FaLaptopCode className="text-2xl sm:text-3xl text-cyan-600 dark:text-cyan-400" />
               <div>
-                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">
+                <h3
+                  className="text-base sm:text-lg md:text-xl font-semibold"
+                  style={{ color: "var(--text)" }}
+                >
                   Skills & Tools
                 </h3>
-                <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400">
+                <p className="text-xs sm:text-sm md:text-base text-muted">
                   Explore my core tech stack & favorite tools.
                 </p>
               </div>
@@ -77,15 +91,17 @@ export default function About() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Link
               href="/projects"
-              className="flex items-center gap-4 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 
-                         bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="flex items-center gap-4 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer surface-2"
             >
               <FaBriefcase className="text-2xl sm:text-3xl text-indigo-600 dark:text-indigo-400" />
               <div>
-                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">
+                <h3
+                  className="text-base sm:text-lg md:text-xl font-semibold"
+                  style={{ color: "var(--text)" }}
+                >
                   Showcase
                 </h3>
-                <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400">
+                <p className="text-xs sm:text-sm md:text-base text-muted">
                   Take a look at some of my favorite projects.
                 </p>
               </div>
@@ -96,15 +112,17 @@ export default function About() {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
             <Link
               href="/experience"
-              className="flex items-center gap-4 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 
-                         bg-white dark:bg-gray-900 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+              className="flex items-center gap-4 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer surface-2"
             >
               <FaGraduationCap className="text-2xl sm:text-3xl text-green-600 dark:text-green-400" />
               <div>
-                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">
+                <h3
+                  className="text-base sm:text-lg md:text-xl font-semibold"
+                  style={{ color: "var(--text)" }}
+                >
                   Experience & Education
                 </h3>
-                <p className="text-xs sm:text-sm md:text-base text-gray-600 dark:text-gray-400">
+                <p className="text-xs sm:text-sm md:text-base text-muted">
                   Learn about my journey and professional growth.
                 </p>
               </div>

@@ -1,61 +1,242 @@
 @import "tailwindcss";
 
-/* Font setup */
+/* ------------------------------
+   Base fonts
+------------------------------ */
 @layer base {
   body {
     font-family: var(--font-inter), sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-poppins), sans-serif;
   }
 }
 
-/* Global background + text transition */
-body {
-  @apply bg-black text-gray-100 transition-colors duration-300 ease-in-out;
+/* ------------------------------
+   Theme tokens (Dark default)
+------------------------------ */
+:root {
+  /* Page */
+  --bg: #000000;
+  --text: #f3f4f6; /* ~text-gray-100 */
+  --muted: #9ca3af; /* ~text-gray-400 */
+  --muted-2: #d1d5db; /* ~text-gray-300 */
+
+  /* Surfaces */
+  --card: #0b0b0b;
+  --card-2: #111111;
+
+  /* Borders / dividers */
+  --border: #374151; /* ~gray-700 */
+  --border-soft: rgba(255, 255, 255, 0.08);
+
+  /* Links */
+  --link: #e5e7eb; /* ~gray-200 */
+  --link-hover: #ffffff;
+
+  /* Buttons */
+  --btn-bg: #ffffff;
+  --btn-text: #000000;
+  --btn-bg-hover: #e5e7eb;
+
+  /* Focus ring */
+  --ring: rgba(255, 255, 255, 0.25);
+
+  /* Dots background */
+  --dots: #333333; /* matches your current */
+  --dots-size: 50px;
+  --dots-shift: 100px;
+
+  /* Light-only glows (unused in dark; falls back to transparent) */
+  /* (we keep them undefined here on purpose) */
 }
 
+/* ------------------------------
+   Light theme
+------------------------------ */
+html.light {
+  --bg: #ffffff;
+  --text: #0b0b0b;
+  --muted: #4b5563; /* ~gray-600 */
+  --muted-2: #374151; /* ~gray-700 */
+
+  --card: #ffffff;
+  --card-2: #f8fafc; /* ~slate-50 */
+
+  --border: #e5e7eb; /* ~gray-200 */
+  --border-soft: rgba(0, 0, 0, 0.08);
+
+  --link: #111827; /* ~gray-900 */
+  --link-hover: #000000;
+
+  --btn-bg: #0b0b0b;
+  --btn-text: #ffffff;
+  --btn-bg-hover: #111827;
+
+  --ring: rgba(0, 0, 0, 0.2);
+
+  /* Better light-mode animated pattern */
+  --dots: rgba(15, 23, 42, 0.08); /* slate-ish, subtle */
+  --dots-size: 46px;
+  --dots-shift: 90px;
+
+  /* Soft gradient wash behind dots (depth) */
+  --bg-glow-1: rgba(34, 211, 238, 0.1); /* cyan glow */
+  --bg-glow-2: rgba(59, 130, 246, 0.08); /* blue glow */
+}
+
+/* ------------------------------
+   Global layout + transitions
+------------------------------ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(800px 400px at 20% 10%, var(--bg-glow-1, transparent), transparent 60%),
+    radial-gradient(700px 360px at 80% 30%, var(--bg-glow-2, transparent), transparent 60%),
+    var(--bg);
+  color: var(--text);
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+/* Animated dotted background (works in both themes) */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(#333 1px, transparent 1px);
-  background-size: 50px 50px;
+  inset: 0;
+  background: radial-gradient(var(--dots) 1px, transparent 1px);
+  background-size: var(--dots-size) var(--dots-size);
   animation: moveDots 20s linear infinite;
   z-index: -1;
 }
 
 @keyframes moveDots {
-  0% { background-position: 0 0; }
-  100% { background-position: 100px 100px; }
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: var(--dots-shift) var(--dots-shift);
+  }
 }
 
-
-
-html {
-  scroll-behavior: smooth;
-}
-
-/* Smooth link hover globally */
+/* ------------------------------
+   Global element defaults
+------------------------------ */
 a {
-  @apply transition-colors duration-300 ease-in-out;
+  color: var(--link);
+  text-decoration: none;
+  transition: color 300ms ease-in-out;
+}
+a:hover {
+  color: var(--link-hover);
 }
 
-/* Headings transitions */
-h1, h2, h3, h4, h5, h6 {
-  @apply transition-colors duration-300 ease-in-out;
-}
-
-/* Subtle divider style (used in header/footer/hamburger menu) */
 hr {
-  @apply border-gray-200 dark:border-gray-700;
-  @apply transition-colors duration-300 ease-in-out;
+  border-color: var(--border);
+  transition: border-color 300ms ease-in-out;
 }
 
+:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* ------------------------------
+   Reusable UI utility classes
+------------------------------ */
+.text-default {
+  color: var(--text);
+}
+.text-muted {
+  color: var(--muted);
+}
+.text-muted-2 {
+  color: var(--muted-2);
+}
+
+.surface {
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+}
+.surface-2 {
+  background: var(--card-2);
+  border: 1px solid var(--border-soft);
+}
+
+.link {
+  color: var(--link);
+  transition: color 300ms ease-in-out;
+}
+.link:hover {
+  color: var(--link-hover);
+}
+
+.btn-primary {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out,
+    transform 200ms ease-in-out;
+}
+.btn-primary:hover {
+  background: var(--btn-bg-hover);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* ---------- helpers to reduce inline styles ---------- */
+.card {
+  background: var(--card-2);
+  border: 1px solid var(--border-soft);
+}
+
+.input {
+  background: var(--card-2);
+  color: var(--text);
+  border: 1px solid var(--border-soft);
+}
+
+/* Accent hover helpers */
+.hover-accent:hover {
+  color: #06b6d4;
+} /* cyan-500 */
+.hover-blue:hover {
+  color: #2563eb;
+} /* blue-600 */
+.hover-green:hover {
+  color: #16a34a;
+} /* green-600 */
+.hover-sky:hover {
+  color: #0ea5e9;
+} /* sky-500 */
+
+.hover-border-accent:hover {
+  border-color: #06b6d4;
+}
+
+/* ------------------------------
+   Swiper theme pagination
+------------------------------ */
+.swiper-pagination-bullet {
+  background: var(--muted);
+  opacity: 0.5;
+}
+.swiper-pagination-bullet-active {
+  background: var(--text);
+  opacity: 1;
+}
+
+/* ------------------------------
+   Animations (kept)
+------------------------------ */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -70,11 +251,9 @@ hr {
 .fadeInUp {
   animation: fadeInUp 1s ease-out forwards;
 }
-
 .fadeInUp.delay-200 {
   animation-delay: 0.2s;
 }
-
 .fadeInUp.delay-300 {
   animation-delay: 0.3s;
 }
