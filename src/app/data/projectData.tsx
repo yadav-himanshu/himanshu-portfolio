@@ -8,6 +8,14 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "OpenThoughts — User-Generated Content Platform",
+    description:
+      "A content-sharing platform where users can post thoughts, poems, and stories, interact through likes and comments, and where content is managed via admin moderation.",
+    techStack: ["Next.js","Firebase", "Tailwind CSS", "Nodemailer","SEO","Google Search Console"],
+    github: "https://github.com/yadav-himanshu/Recipes-Finder",
+    link: "https://recipes-finder-mvec.vercel.app",
+  },
+  {
     title: "Bombay Facility Services (BFS)",
     description:
       "A fully responsive company website showcasing services and contact options with interactive UI.",
@@ -37,7 +45,7 @@ export const projects: Project[] = [
       "Modern, interactive portfolio website to showcase projects, skills, and professional experience. Includes smooth animations, responsive design, and a contact form with Nodemailer integration.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Nodemailer", "Express.js", "Vercel"],
     github: "https://github.com/yadav-himanshu/Portfolio",
-    link: "https://your-portfolio.vercel.app",
+    link: "https://himanshu-portfolio-pink.vercel.app",
   },
   {
     title: "Contact Management App",
@@ -45,6 +53,6 @@ export const projects: Project[] = [
       "Dynamic contact management system allowing users to add, update, and delete contacts efficiently. Real-time synchronization ensures instant updates across the app.",
     techStack: ["React.js", "Tailwind CSS", "Firebase (Realtime Database)", "JavaScript"],
     github: "https://github.com/yadav-himanshu/Contact-App",
-    link: "https://contact-app-demo.vercel.app",
+    link: "https://firebase-contact-app-gold.vercel.app",
   },
 ];
