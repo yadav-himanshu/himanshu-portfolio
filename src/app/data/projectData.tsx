@@ -12,8 +12,8 @@ export const projects: Project[] = [
     description:
       "A content-sharing platform where users can post thoughts, poems, and stories, interact through likes and comments, and where content is managed via admin moderation.",
     techStack: ["Next.js","Firebase", "Tailwind CSS", "Nodemailer","SEO","Google Search Console"],
-    github: "https://github.com/yadav-himanshu/Recipes-Finder",
-    link: "https://recipes-finder-mvec.vercel.app",
+    github: "https://github.com/yadav-himanshu/openThoughts",
+    link: "https://open-thoughts-pi.vercel.app",
   },
   {
     title: "Bombay Facility Services (BFS)",
