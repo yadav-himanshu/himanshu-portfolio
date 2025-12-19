@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Portfolio Website
 
-## Getting Started
+A personal portfolio showcasing my work, experience, and skills as a frontend-focused developer. Built with modern web technologies, smooth animations, and a clean UI to reflect real-world product development standards.
 
-First, run the development server:
+---
+
+## 🔗 Live Demo
+
+👉 *https://himanshu-portfolio-pink.vercel.app*
+
+---
+
+## 🛠 Tech Stack
+
+- Framework: Next.js (App Router)
+
+- Language: TypeScript, JavaScript
+
+- Styling: Tailwind CSS
+
+- Animations: Framer Motion
+
+- UI Utilities: ShadCN UI
+
+- State & Logic: React Hooks
+
+- Deployment: Vercel
+
+---
+
+## ✨ Features
+
+- Responsive layout across all devices
+
+- Smooth page and scroll-based animations
+
+- Experience & education timeline
+
+- Dark / light theme toggle
+
+- Scroll-to-top interaction
+
+- SEO-friendly structure (metadata, semantic HTML)
+
+- Reusable and scalable component architecture
+
+---
+
+## ⚙️ Setup & Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/yadav-himanshu/himanshu-portfolio.git
+cd himanshu-portfolio
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Run the app
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🧠 What This Project Demonstrates
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Real-world Next.js App Router usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Clear separation of UI, data, and logic
 
-## Learn More
+- Component reusability and maintainability
 
-To learn more about Next.js, take a look at the following resources:
+- Frontend performance and UX focus
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Clean theming and design consistency
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📈 Future Improvements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Project filtering and tagging
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Blog or case study section
+
+- Accessibility enhancements
+
+- Performance monitoring & analytics
+
+---
+
+## 👨‍💻 Author
+
+**Himanshu Yadav**
+Frontend Developer
+
+- GitHub: *https://github.com/yadav-himanshu*
+- LinkedIn: *https://www.linkedin.com/in/himanshu-yadav-0706a1137*
+
+---
+
+If you're a recruiter or developer reviewing this project — feedback is always welcome! 🙌

@@ -14,7 +14,7 @@ const Section: React.FC<SectionProps> = ({ id, children }) => {
       className="min-h-screen flex flex-col justify-center items-center text-center"
     >
       <div
-        className="w-full max-w-[1200px] text-lg flex flex-col gap-4 justify-center items-center"
+        className="w-full max-w-[1200px] text-lg flex flex-col gap-2 justify-center items-center"
         style={{ color: "var(--muted-2)" }}
       >
         {children}

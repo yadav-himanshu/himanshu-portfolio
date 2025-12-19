@@ -9,7 +9,7 @@ export default function About() {
   useEffect(() => setLoaded(true), []);
 
   return (
-    <section id="about" className="w-full max-w-[1200px] py-20 px-6 sm:px-12 mx-auto">
+    <section id="about" className="w-full max-w-[1200px] p-6 sm:px-12 mx-auto">
       <div className="grid md:grid-cols-2 gap-10 items-start">
         {/* Left side: About Text */}
         <motion.div
@@ -25,37 +25,42 @@ export default function About() {
           </h2>
 
           <p
-            className="text-sm sm:text-base md:text-lg leading-relaxed mb-4"
+            className="text-sm md:text-base leading-relaxed mb-4"
             style={{ color: "var(--muted-2)" }}
           >
             Hey! I’m{" "}
             <strong className="text-cyan-600 dark:text-cyan-400">
               Himanshu Yadav
             </strong>
-            , a <strong>Frontend Developer</strong> passionate about building
-            clean, fast, and responsive web interfaces. I enjoy working with{" "}
-            <strong>React.js</strong> and <strong>Tailwind CSS</strong> to
-            create modern and scalable user experiences.
+            , a <strong>Frontend Developer</strong> focused on building clean,
+            performant, and production-ready web applications. I primarily work
+            with <strong>React</strong> and <strong>Next.js</strong>, paying
+            close attention to UI structure, performance, and real-world
+            usability.
           </p>
 
           <p
-            className="text-sm sm:text-base md:text-lg leading-relaxed mb-4"
+            className="text-sm md:text-base leading-relaxed mb-4"
             style={{ color: "var(--muted-2)" }}
           >
-            While my primary focus is frontend, I also have a working knowledge
-            of <strong>Node.js</strong> and <strong>APIs</strong>, which helps
-            me integrate the backend with the UI smoothly.
+            Through hands-on projects, I’ve worked extensively with the
+            <strong> Next.js App Router</strong>, implementing features like
+            server-side rendering, dynamic routing, SEO optimization, and
+            client–server separation. I enjoy designing interfaces that feel
+            intuitive while remaining scalable and maintainable.
           </p>
 
           <p
-            className="text-sm sm:text-base md:text-lg leading-relaxed"
+            className="text-sm md:text-base leading-relaxed"
             style={{ color: "var(--muted-2)" }}
           >
-            My toolkit includes <strong>Git/GitHub</strong> for collaboration,
-            <strong> VS Code</strong> for development, and deployment platforms
-            like <strong>Vercel</strong> and <strong>Netlify</strong>. I love
-            writing reusable components and continuously improving performance
-            and accessibility.
+            My workflow includes <strong>Tailwind CSS</strong> and
+            component-based design systems, along with tools like{" "}
+            <strong>Git/GitHub</strong> for collaboration and{" "}
+            <strong>Vercel</strong> for deployment. I also have experience
+            integrating APIs and services like <strong>Firebase</strong>,
+            handling real production issues, and continuously improving
+            performance and accessibility.
           </p>
         </motion.div>
 

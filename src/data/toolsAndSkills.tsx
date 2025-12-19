@@ -23,7 +23,7 @@ import {
 } from "react-icons/si";
 import { BsCodeSlash } from "react-icons/bs";
 
-  export const skills = [
+export const skills = [
   {
     icon: <FaJs className="text-yellow-400" />,
     label: "JavaScript (ES6)",
@@ -81,51 +81,50 @@ import { BsCodeSlash } from "react-icons/bs";
   },
 ];
 
-
-  export const tools = [
-    {
-      icon: <BsCodeSlash className="text-blue-600" />,
-      label: "Visual Studio Code",
-      description: "Code editor for efficient development",
-    },
-    {
-      icon: <FaGithub className="text-gray-800 dark:text-gray-200" />,
-      label: "Git & GitHub",
-      description: "Version control for collaborative work",
-    },
-    {
-      icon: <SiEslint className="text-violet-600" />,
-      label: "ESLint",
-      description: "Linting tool to ensure code quality",
-    },
-    {
-      icon: <SiPrettier className="text-pink-400" />,
-      label: "Prettier",
-      description: "Code formatter for consistent style",
-    },
-    {
-      icon: <FaChrome className="text-yellow-500" />,
-      label: "Chrome DevTools",
-      description: "Debugging and profiling web applications",
-    },
-    {
-      icon: <SiVercel className="text-black dark:text-white" />,
-      label: "Vercel",
-      description: "Platform for serverless deployment",
-    },
-    {
-      icon: <SiNetlify className="text-teal-500" />,
-      label: "Netlify",
-      description: "Platform for continuous deployment",
-    },
-    {
-      icon: <FaSearch className="text-green-600" />,
-      label: "Screaming Frog (SEO Spider)",
-      description: "SEO audit and performance reports",
-    },
-    {
-      icon: <FaCode className="text-gray-700" />,
-      label: "REST / API design",
-      description: "Designing and building RESTful APIs",
-    },
-  ];
+export const tools = [
+  {
+    icon: <BsCodeSlash className="text-blue-600" />,
+    label: "Visual Studio Code",
+    description: "Code editor for efficient development",
+  },
+  {
+    icon: <FaGithub className="text-gray-800 dark:text-gray-200" />,
+    label: "Git & GitHub",
+    description: "Version control for collaborative work",
+  },
+  {
+    icon: <SiEslint className="text-violet-600" />,
+    label: "ESLint",
+    description: "Linting tool to ensure code quality",
+  },
+  {
+    icon: <SiPrettier className="text-pink-400" />,
+    label: "Prettier",
+    description: "Code formatter for consistent style",
+  },
+  {
+    icon: <FaChrome className="text-yellow-500" />,
+    label: "Chrome DevTools",
+    description: "Debugging and profiling web applications",
+  },
+  {
+    icon: <SiVercel className="text-black dark:text-white" />,
+    label: "Vercel",
+    description: "Platform for serverless deployment",
+  },
+  {
+    icon: <SiNetlify className="text-teal-500" />,
+    label: "Netlify",
+    description: "Platform for continuous deployment",
+  },
+  {
+    icon: <FaSearch className="text-green-600" />,
+    label: "Screaming Frog (SEO Spider)",
+    description: "SEO audit and performance reports",
+  },
+  {
+    icon: <FaCode className="text-gray-700" />,
+    label: "REST / API design",
+    description: "Designing and building RESTful APIs",
+  },
+];

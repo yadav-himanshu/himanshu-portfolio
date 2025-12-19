@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { skills, tools } from "../data/toolsAndSkills";
+import { skills, tools } from "../../data/toolsAndSkills";
 
 type Tab = "all" | "skills" | "tools";
 
@@ -19,7 +19,7 @@ export default function SkillsToolsPage() {
     return skills.filter(
       (s) =>
         s.label.toLowerCase().includes(q) ||
-        (s.description || "").toLowerCase().includes(q)
+        (s.description || "").toLowerCase().includes(q),
     );
   }, [q]);
 
@@ -28,7 +28,7 @@ export default function SkillsToolsPage() {
     return tools.filter(
       (t) =>
         t.label.toLowerCase().includes(q) ||
-        (t.description || "").toLowerCase().includes(q)
+        (t.description || "").toLowerCase().includes(q),
     );
   }, [q]);
 
@@ -56,11 +56,15 @@ export default function SkillsToolsPage() {
         (e.currentTarget as HTMLDivElement).style.borderColor = "#06b6d4"; // cyan-500
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border-soft)";
+        (e.currentTarget as HTMLDivElement).style.borderColor =
+          "var(--border-soft)";
       }}
     >
       <div className="text-4xl">{icon}</div>
-      <div className="mt-3 text-sm font-medium" style={{ color: "var(--text)" }}>
+      <div
+        className="mt-3 text-sm font-medium"
+        style={{ color: "var(--text)" }}
+      >
         {label}
       </div>
       <p className="text-xs mt-2" style={{ color: "var(--muted)" }}>
@@ -77,7 +81,9 @@ export default function SkillsToolsPage() {
         onClick={() => setTab(value)}
         className="px-4 py-2 rounded-lg text-sm font-medium transition-all"
         style={{
-          backgroundColor: active ? "color-mix(in srgb, var(--card-2) 70%, var(--bg))" : "transparent",
+          backgroundColor: active
+            ? "color-mix(in srgb, var(--card-2) 70%, var(--bg))"
+            : "transparent",
           color: active ? "var(--text)" : "var(--muted)",
           border: `1px solid ${active ? "#06b6d4" : "var(--border-soft)"}`,
         }}
@@ -107,7 +113,10 @@ export default function SkillsToolsPage() {
             ← Back
           </button>
 
-          <h1 className="text-3xl md:text-4xl font-bold" style={{ color: "var(--text)" }}>
+          <h1
+            className="text-3xl md:text-4xl font-bold"
+            style={{ color: "var(--text)" }}
+          >
             All Skills & Tools
           </h1>
         </div>
@@ -141,12 +150,17 @@ export default function SkillsToolsPage() {
       {/* Skills */}
       {showSkills && (
         <section className="mb-16">
-          <h2 className="text-2xl font-semibold mb-6" style={{ color: "var(--text)" }}>
+          <h2
+            className="text-2xl font-semibold mb-6"
+            style={{ color: "var(--text)" }}
+          >
             Skills
           </h2>
 
           {filteredSkills.length === 0 ? (
-            <p style={{ color: "var(--muted)" }}>No skills match your search.</p>
+            <p style={{ color: "var(--muted)" }}>
+              No skills match your search.
+            </p>
           ) : (
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredSkills.map((s, i) => (
@@ -165,7 +179,10 @@ export default function SkillsToolsPage() {
       {/* Tools */}
       {showTools && (
         <section>
-          <h2 className="text-2xl font-semibold mb-6" style={{ color: "var(--text)" }}>
+          <h2
+            className="text-2xl font-semibold mb-6"
+            style={{ color: "var(--text)" }}
+          >
             Tools
           </h2>
 

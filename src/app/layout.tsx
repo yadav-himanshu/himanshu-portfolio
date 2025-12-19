@@ -1,8 +1,8 @@
 import "./globals.css";
 import Header from "@/components/Header";
 import { Inter, Poppins } from "next/font/google";
-// import Torch from "@/components/MouseEffect";
-import ThemeToggle from "@/components/ThemeToggle";
+// import Torch from "@/components/ui/MouseEffect";
+import FloatingActions from "@/components/ui/FloatingActions";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,7 +20,11 @@ export const metadata = {
   description: "My Portfolio built with Next.js, TypeScript, and Tailwind",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body className="scroll-smooth">
@@ -45,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
 
         {/* <Torch /> */}
-        <ThemeToggle />
+        <FloatingActions />
       </body>
     </html>
   );

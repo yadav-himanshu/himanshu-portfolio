@@ -61,7 +61,9 @@ const Header = () => {
     <header
       className={[
         "fixed top-0 left-0 w-full z-50 transition-all duration-300",
-        scrolled ? "backdrop-blur-md border-b" : "bg-transparent border-transparent",
+        scrolled
+          ? "backdrop-blur-md border-b"
+          : "bg-transparent border-transparent",
       ].join(" ")}
       style={
         scrolled
@@ -99,7 +101,8 @@ const Header = () => {
                   color: activeSection === link.id ? "#22d3ee" : "var(--text)", // cyan-400ish
                 }}
                 onMouseEnter={(e) => {
-                  if (activeSection !== link.id) e.currentTarget.style.color = "#3b82f6"; // blue-500
+                  if (activeSection !== link.id)
+                    e.currentTarget.style.color = "#3b82f6"; // blue-500
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color =
@@ -151,7 +154,8 @@ const Header = () => {
                   color: activeSection === link.id ? "#22d3ee" : "var(--text)",
                 }}
                 onMouseEnter={(e) => {
-                  if (activeSection !== link.id) e.currentTarget.style.color = "#3b82f6";
+                  if (activeSection !== link.id)
+                    e.currentTarget.style.color = "#3b82f6";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color =

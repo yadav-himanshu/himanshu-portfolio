@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { experiences } from "../data/ExperienceAndEducation";
+import { experiences } from "../../data/ExperienceAndEducation";
 
 export default function ExperiencePage() {
   const router = useRouter();
@@ -41,7 +41,10 @@ export default function ExperiencePage() {
         </span>
       </div>
 
-      <h1 className="text-4xl font-bold text-center mb-12" style={{ color: "var(--text)" }}>
+      <h1
+        className="text-4xl font-bold text-center mb-12"
+        style={{ color: "var(--text)" }}
+      >
         Experience & Education
       </h1>
 
@@ -64,10 +67,12 @@ export default function ExperiencePage() {
               }}
               onClick={() => toggle(index)}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "#06b6d4"; // cyan-500
+                (e.currentTarget as HTMLDivElement).style.borderColor =
+                  "#06b6d4"; // cyan-500
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "var(--border-soft)";
+                (e.currentTarget as HTMLDivElement).style.borderColor =
+                  "var(--border-soft)";
               }}
               role="button"
               tabIndex={0}
@@ -82,7 +87,10 @@ export default function ExperiencePage() {
 
                 <div className="flex-1 text-left">
                   <div className="flex items-start justify-between gap-4">
-                    <h2 className="text-xl font-semibold" style={{ color: "var(--text)" }}>
+                    <h2
+                      className="text-xl font-semibold"
+                      style={{ color: "var(--text)" }}
+                    >
                       {exp.title}
                     </h2>
 
@@ -101,11 +109,14 @@ export default function ExperiencePage() {
                   </p>
 
                   <div className="mt-2 flex items-center gap-2">
-                    <span className="text-sm font-medium text-cyan-500">{exp.date}</span>
+                    <span className="text-sm font-medium text-cyan-500">
+                      {exp.date}
+                    </span>
                     <span
                       className="text-xs px-2 py-1 rounded-full"
                       style={{
-                        backgroundColor: "color-mix(in srgb, var(--card-2) 60%, var(--bg))",
+                        backgroundColor:
+                          "color-mix(in srgb, var(--card-2) 60%, var(--bg))",
                         border: "1px solid var(--border-soft)",
                         color: "var(--muted)",
                       }}

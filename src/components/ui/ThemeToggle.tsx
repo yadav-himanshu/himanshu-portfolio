@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-const STORAGE_KEY = "theme"; // "dark" | "light"
+const STORAGE_KEY = "theme";
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
@@ -12,35 +13,31 @@ export default function ThemeToggle() {
     setMounted(true);
 
     const saved = localStorage.getItem(STORAGE_KEY);
-
-    // 1) Saved preference wins
     if (saved === "light") {
       document.documentElement.classList.add("light");
       setIsLight(true);
       return;
     }
+
     if (saved === "dark") {
       document.documentElement.classList.remove("light");
-      setIsLight(false);
       return;
     }
 
-    // 2) Otherwise follow system preference
-    const prefersLight = window.matchMedia?.("(prefers-color-scheme: light)")?.matches;
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: light)",
+    ).matches;
     if (prefersLight) {
       document.documentElement.classList.add("light");
       setIsLight(true);
-    } else {
-      document.documentElement.classList.remove("light");
-      setIsLight(false);
     }
   }, []);
 
   const toggleTheme = () => {
-    const nextIsLight = !isLight;
-    setIsLight(nextIsLight);
+    const next = !isLight;
+    setIsLight(next);
 
-    if (nextIsLight) {
+    if (next) {
       document.documentElement.classList.add("light");
       localStorage.setItem(STORAGE_KEY, "light");
     } else {
@@ -52,25 +49,38 @@ export default function ThemeToggle() {
   if (!mounted) return null;
 
   return (
-    <button
-      type="button"
+    <motion.button
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       onClick={toggleTheme}
-      className={[
-        "fixed bottom-10 right-10 z-[9999]",
-        "rounded-full px-4 py-3",
-        "shadow-lg backdrop-blur",
-        "transition hover:opacity-90",
-        "surface",
-      ].join(" ")}
-      aria-label={isLight ? "Switch to dark theme" : "Switch to light theme"}
+      aria-label="Toggle theme"
       title={isLight ? "Dark mode" : "Light mode"}
+      className="
+    fixed bottom-6 left-6 z-50
+    group flex items-center justify-center
+    w-12 h-12 rounded-full
+    backdrop-blur shadow-lg
+    surface
+    overflow-hidden
+    transition-all duration-300
+    hover:w-40
+  "
     >
-      <span className="flex items-center gap-2">
-        <span className="text-lg leading-none">{isLight ? "🌙" : "☀️"}</span>
-        <span className="text-sm font-medium text-default">
-          {isLight ? "Dark" : "Light"}
-        </span>
+      <span className="text-lg shrink-0">{isLight ? "🌙" : "☀️"}</span>
+
+      <span
+        className="
+       text-sm font-medium whitespace-nowrap
+      opacity-0 max-w-0
+      group-hover:ml-2
+      group-hover:opacity-100
+      group-hover:max-w-[100px]
+      transition-all duration-300
+    "
+      >
+        {isLight ? "Dark mode" : "Light mode"}
       </span>
-    </button>
+    </motion.button>
   );
 }

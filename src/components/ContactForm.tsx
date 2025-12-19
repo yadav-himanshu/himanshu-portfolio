@@ -53,7 +53,10 @@ export default function Contact() {
     "px-4 py-3 rounded-lg outline-none transition-all duration-300 shadow-sm hover:shadow-md focus:shadow-lg text-sm sm:text-base md:text-lg";
 
   return (
-    <section id="contact" className="relative w-full py-20 px-6 sm:px-10 overflow-hidden">
+    <section
+      id="contact"
+      className="relative w-full py-20 px-6 sm:px-10 overflow-hidden"
+    >
       <div className="max-w-3xl mx-auto text-center relative z-10">
         {/* Heading */}
         <h2
@@ -71,7 +74,8 @@ export default function Contact() {
           }`}
           style={{ color: "var(--muted)" }}
         >
-          Have an opportunity, idea, or project to discuss? Let’s connect and explore how I can help.
+          Have an opportunity, idea, or project to discuss? Let’s connect and
+          explore how I can help.
         </p>
 
         {/* Form */}
@@ -129,16 +133,22 @@ export default function Contact() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 sm:py-3 rounded-lg 
-                       bg-gradient-to-r from-cyan-500 to-blue-600 
-                       text-white font-semibold 
-                       shadow-md hover:from-cyan-600 hover:to-blue-700 
-                       hover:scale-[1.02] hover:shadow-lg 
-                       transition-all duration-300 
-                       text-sm sm:text-base md:text-lg
-                       disabled:opacity-50"
+            className="
+    w-full
+    py-2.5 sm:py-3
+    rounded-lg
+    text-sm sm:text-base md:text-lg
+    font-medium
+    transition-all duration-300
+    disabled:opacity-50 disabled:cursor-not-allowed
+    hover:-translate-y-0.5
+  "
+            style={{
+              backgroundColor: "var(--text)",
+              color: "var(--bg)",
+            }}
           >
-            {loading ? "Sending..." : "Send Message 🚀"}
+            {loading ? "Sending..." : "Send Message"}
           </button>
 
           {/* Inline status message */}
@@ -150,8 +160,8 @@ export default function Contact() {
                   status.type === "success"
                     ? "#22c55e" // green-500
                     : status.type === "error"
-                    ? "#ef4444" // red-500
-                    : "var(--muted)",
+                      ? "#ef4444" // red-500
+                      : "var(--muted)",
               }}
             >
               {status.type === "success" && <FaCheckCircle />}

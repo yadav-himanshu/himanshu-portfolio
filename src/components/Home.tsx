@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { FaFileDownload, FaEnvelope, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import {
+  FaFileDownload,
+  FaEnvelope,
+  FaGithub,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 export default function HomeSection() {
@@ -14,7 +20,7 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col md:flex-row items-center justify-center px-6 py-10 gap-10"
+      className="min-h-screen flex flex-col md:flex-row items-center justify-center p-5 gap-10"
     >
       {/* Left Column: Profile + Social */}
       <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 md:w-1/3">
@@ -87,7 +93,9 @@ export default function HomeSection() {
           style={{ color: "var(--text)" }}
         >
           Hi, I’m{" "}
-          <span className="text-cyan-600 dark:text-cyan-400">Himanshu Yadav</span>
+          <span className="text-cyan-600 dark:text-cyan-400">
+            Himanshu Yadav
+          </span>
         </h1>
 
         <h2
@@ -105,35 +113,53 @@ export default function HomeSection() {
             ${loaded ? "opacity-100" : "opacity-0"}`}
           style={{ color: "var(--muted)" }}
         >
-          Frontend Developer with 2 years of experience building responsive and
-          scalable web applications using JavaScript, React, Next.js, Tailwind
-          CSS, Node.js, Express, MongoDB, and MUI.
+          Frontend Developer with 2+ years of experience building performant,
+          responsive web applications using React and Next.js, with a strong
+          focus on UI architecture, state management, SEO, and real-world
+          production workflows.
         </p>
 
         <div
           className={`flex flex-col sm:flex-row gap-4 mt-6 transition-opacity duration-1000 ease-out delay-800
-            ${loaded ? "opacity-100" : "opacity-0"}`}
+    ${loaded ? "opacity-100" : "opacity-0"}`}
         >
+          {/* Primary */}
           <a
             href="/Himanshu_Resume_Frontend_Developer.pdf"
             download
-            className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500
-                       text-white text-sm sm:text-base font-medium shadow-md
-                       transform transition-transform duration-300 ease-in-out origin-center
-                       hover:scale-105 hover:shadow-lg flex items-center gap-2"
+            className="
+      inline-flex items-center gap-2
+      px-6 py-3 rounded-full
+      text-sm sm:text-base font-medium
+      transition-all duration-300
+      hover:-translate-y-0.5
+    "
+            style={{
+              backgroundColor: "var(--text)",
+              color: "var(--bg)",
+            }}
           >
-            <FaFileDownload size={18} /> Download Resume
+            <FaFileDownload size={16} />
+            Download Resume
           </a>
 
+          {/* Secondary */}
           <a
             href="#contact"
-            className="px-6 py-3 rounded-full text-sm sm:text-base font-medium
-                       transform transition-all duration-300 ease-in-out origin-center
-                       hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500 hover:text-white
-                       hover:scale-105 hover:shadow-lg flex items-center gap-2"
-            style={{ border: "1px solid #22d3ee", color: "#22d3ee" }}
+            className="
+      inline-flex items-center gap-2
+      px-6 py-3 rounded-full
+      text-sm sm:text-base font-medium
+      transition-all duration-300
+      hover:-translate-y-0.5
+    "
+            style={{
+              border: "1px solid var(--border-soft)",
+              color: "var(--text)",
+            }}
           >
-            <FaEnvelope size={18} /> Contact Me
+            <FaEnvelope size={16} />
+            Contact Me
           </a>
         </div>
 

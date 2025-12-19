@@ -14,11 +14,15 @@ export default function Torch() {
     window.addEventListener("mousemove", handleMouseMove);
 
     // Detect theme by presence of html.light (your system)
-    const checkTheme = () => setIsLight(document.documentElement.classList.contains("light"));
+    const checkTheme = () =>
+      setIsLight(document.documentElement.classList.contains("light"));
     checkTheme();
 
     const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);

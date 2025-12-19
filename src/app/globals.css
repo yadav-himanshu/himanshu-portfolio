@@ -82,7 +82,7 @@ html.light {
   --ring: rgba(0, 0, 0, 0.2);
 
   /* Better light-mode animated pattern */
-  --dots: rgba(15, 23, 42, 0.08); /* slate-ish, subtle */
+  --dots: rgba(2, 6, 17, 0.271); /* slate-ish, subtle */
   --dots-size: 46px;
   --dots-shift: 90px;
 
@@ -100,11 +100,21 @@ html {
 
 body {
   background:
-    radial-gradient(800px 400px at 20% 10%, var(--bg-glow-1, transparent), transparent 60%),
-    radial-gradient(700px 360px at 80% 30%, var(--bg-glow-2, transparent), transparent 60%),
+    radial-gradient(
+      800px 400px at 20% 10%,
+      var(--bg-glow-1, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      700px 360px at 80% 30%,
+      var(--bg-glow-2, transparent),
+      transparent 60%
+    ),
     var(--bg);
   color: var(--text);
-  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+  transition:
+    background-color 300ms ease-in-out,
+    color 300ms ease-in-out;
 }
 
 /* Animated dotted background (works in both themes) */
@@ -182,7 +192,9 @@ hr {
 .btn-primary {
   background: var(--btn-bg);
   color: var(--btn-text);
-  transition: background-color 200ms ease-in-out, color 200ms ease-in-out,
+  transition:
+    background-color 200ms ease-in-out,
+    color 200ms ease-in-out,
     transform 200ms ease-in-out;
 }
 .btn-primary:hover {

@@ -7,27 +7,26 @@ import About from "@/components/About";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import ToolsAndSkills from "@/components/SliderForSkillsAndTools";
 
-
 export default function Home() {
   return (
     <div className="w-full">
       <Section id="home">
-        <HomeSection/>
+        <HomeSection />
       </Section>
 
       <Section id="about">
-        <About/>
+        <About />
       </Section>
       <Section id="skills">
-        <ToolsAndSkills/>
+        <ToolsAndSkills />
       </Section>
 
       <Section id="ExperienceTimeline">
-        <ExperienceTimeline/>
+        <ExperienceTimeline />
       </Section>
 
       <Section id="showcase">
-            <Showcase/>
+        <Showcase />
       </Section>
 
       <Section id="contact">
