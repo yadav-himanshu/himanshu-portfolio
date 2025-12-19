@@ -125,7 +125,7 @@ export default function HomeSection() {
         >
           {/* Primary */}
           <a
-            href="/Himanshu_Resume_Frontend_Developer.pdf"
+            href="/Himanshu_Frontend_Developer.pdf"
             download
             className="
       inline-flex items-center gap-2
