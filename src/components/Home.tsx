@@ -116,9 +116,9 @@ export default function HomeSection() {
           <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-black uppercase tracking-widest mb-4">
             Front-End Architect
           </div>
-          <h1 className="text-4xl sm:text-6xl lg:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
-            Hi, I’m <br />
-            <span className="text-gradient">Himanshu Yadav</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[1.1] md:leading-[0.9] mb-4">
+            Hi, I’m <br className="hidden lg:block" />
+            <span className="text-gradient whitespace-nowrap">Himanshu Yadav</span>
           </h1>
           <h2 className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-bold tracking-tight">
             Building high-fidelity interfaces from India.
