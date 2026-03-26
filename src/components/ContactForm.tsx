@@ -1,19 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 export default function Contact() {
   const [loading, setLoading] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const [status, setStatus] = useState<{
     message: string;
     type: "success" | "error" | "";
   }>({ message: "", type: "" });
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +46,7 @@ export default function Contact() {
   };
 
   const inputBase =
-    "px-4 py-3 rounded-lg outline-none transition-all duration-300 shadow-sm hover:shadow-md focus:shadow-lg text-sm sm:text-base md:text-lg";
+    "px-5 py-3 rounded-xl outline-none transition-all duration-300 shadow-sm hover:shadow-md focus:shadow-[0_0_15px_rgba(6,182,212,0.3)] text-sm sm:text-base bg-glass border border-glass-border text-foreground backdrop-blur-md focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-muted-foreground/50";
 
   return (
     <section
@@ -59,45 +55,43 @@ export default function Contact() {
     >
       <div className="max-w-3xl mx-auto text-center relative z-10">
         {/* Heading */}
-        <h2
-          className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-4 transition-all duration-1000 ease-out ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6"
-          }`}
-          style={{ color: "#22d3ee" }} // cyan accent stays consistent across themes
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-gradient drop-shadow-sm pb-1"
         >
           Let’s Connect
-        </h2>
+        </motion.h2>
 
-        <p
-          className={`text-sm sm:text-base md:text-lg mb-12 transition-all duration-1000 ease-out delay-200 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-          style={{ color: "var(--muted)" }}
+        <motion.p
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="text-center max-w-2xl mx-auto mb-12 text-muted-foreground text-sm sm:text-base md:text-lg"
         >
           Have an opportunity, idea, or project to discuss? Let’s connect and
           explore how I can help.
-        </p>
+        </motion.p>
 
         {/* Form */}
-        <form
+        <motion.form
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
           onSubmit={handleSubmit}
-          className={`space-y-6 text-left transition-all duration-1000 ease-out delay-400 ${
-            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
+          className="space-y-4 text-left"
         >
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-5">
             <input
               type="text"
               name="name"
               placeholder="Your Name"
               required
               className={inputBase}
-              style={{
-                backgroundColor: "var(--card-2)",
-                color: "var(--text)",
-                border: "1px solid var(--border-soft)",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.12)",
-              }}
             />
 
             <input
@@ -106,12 +100,6 @@ export default function Contact() {
               placeholder="Your Email"
               required
               className={inputBase}
-              style={{
-                backgroundColor: "var(--card-2)",
-                color: "var(--text)",
-                border: "1px solid var(--border-soft)",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.12)",
-              }}
             />
 
             <textarea
@@ -119,34 +107,14 @@ export default function Contact() {
               placeholder="Your Message"
               rows={5}
               required
-              className={inputBase}
-              style={{
-                backgroundColor: "var(--card-2)",
-                color: "var(--text)",
-                border: "1px solid var(--border-soft)",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.12)",
-                resize: "vertical",
-              }}
+              className={`${inputBase} resize-none`}
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="
-    w-full
-    py-2.5 sm:py-3
-    rounded-lg
-    text-sm sm:text-base md:text-lg
-    font-medium
-    transition-all duration-300
-    disabled:opacity-50 disabled:cursor-not-allowed
-    hover:-translate-y-0.5
-  "
-            style={{
-              backgroundColor: "var(--text)",
-              color: "var(--bg)",
-            }}
+            className="w-full py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-bold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] bg-primary text-white"
           >
             {loading ? "Sending..." : "Send Message"}
           </button>
@@ -154,22 +122,19 @@ export default function Contact() {
           {/* Inline status message */}
           {status.message && (
             <div
-              className="mt-3 flex items-center gap-2 text-sm sm:text-base md:text-lg transition-all duration-500"
-              style={{
-                color:
-                  status.type === "success"
-                    ? "#22c55e" // green-500
-                    : status.type === "error"
-                      ? "#ef4444" // red-500
-                      : "var(--muted)",
-              }}
+              className={`mt-3 flex items-center gap-2 text-sm sm:text-base md:text-lg transition-all duration-500 ${status.type === "success"
+                ? "text-green-500"
+                : status.type === "error"
+                  ? "text-red-500"
+                  : "text-muted-foreground"
+                }`}
             >
               {status.type === "success" && <FaCheckCircle />}
               {status.type === "error" && <FaTimesCircle />}
               {status.message}
             </div>
           )}
-        </form>
+        </motion.form>
       </div>
 
       {/* Decorative blurred circles (kept as accent visuals) */}

@@ -17,46 +17,37 @@ export default function ProjectsPage() {
   };
 
   return (
-    <section className="py-12 px-6 max-w-4xl mx-auto">
+    <section className="py-12 px-6 max-w-4xl mx-auto min-h-screen">
       {/* Top bar */}
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex items-center justify-between mb-12">
         <button
           onClick={() => router.back()}
-          className="px-4 py-2 rounded-lg text-sm font-medium border"
-          style={{
-            backgroundColor: "var(--card-2)",
-            color: "var(--text)",
-            borderColor: "var(--border-soft)",
-          }}
+          className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 glass-panel glass-panel-hover border border-glass-border text-foreground flex items-center gap-2 shadow-lg"
         >
-          ← Back
+          <span className="text-primary font-bold">←</span> Back
         </button>
 
-        <span className="text-sm" style={{ color: "var(--muted)" }}>
-          {projects.length} projects
+        <span className="text-sm font-semibold text-muted-foreground bg-glass px-5 py-2 rounded-full border border-glass-border shadow-sm backdrop-blur-md">
+          {projects.length} Projects
         </span>
       </div>
 
-      <h2
-        className="text-3xl md:text-4xl font-bold mb-10 text-center"
-        style={{ color: "var(--text)" }}
-      >
+      <h1 className="text-4xl md:text-6xl font-extrabold mb-16 text-center text-gradient tracking-tight drop-shadow-sm">
         All Projects
-      </h2>
+      </h1>
 
       {/* Stacked list */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-8">
         {projects.map((proj, idx) => {
           const isOpen = openIndex === idx;
 
           return (
             <motion.article
               key={idx}
-              className="rounded-2xl border p-6 shadow-sm hover:shadow-md transition cursor-pointer"
-              style={{
-                backgroundColor: "var(--card-2)",
-                borderColor: "var(--border-soft)",
-              }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="rounded-3xl border border-glass-border p-8 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer glass-panel glass-panel-hover group relative overflow-hidden"
               onClick={() => toggle(idx)}
               role="button"
               tabIndex={0}
@@ -65,39 +56,38 @@ export default function ProjectsPage() {
                 if (e.key === "Enter" || e.key === " ") toggle(idx);
               }}
             >
+              {/* Hover Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
               {/* Header */}
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-xl font-semibold text-[var(--text)]">
+              <div className="flex items-start justify-between gap-4 relative z-10">
+                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
                   {proj.title}
                 </h3>
 
                 <motion.span
                   animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-lg text-[var(--muted)]"
+                  transition={{ duration: 0.3 }}
+                  className="text-xl text-muted-foreground bg-foreground/5 w-10 h-10 flex items-center justify-center rounded-full border border-glass-border shadow-inner"
                 >
                   ▾
                 </motion.span>
               </div>
 
               {/* Description */}
-              <p className="mt-3 text-sm leading-relaxed text-[var(--muted-2)]">
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground relative z-10 font-medium">
                 {proj.description}
               </p>
 
               {/* Tech stack */}
-              <div className="flex flex-wrap gap-2 mt-4">
+              <div className="flex flex-wrap gap-2 mt-6 relative z-10">
                 {proj.techStack.map((tech, i) => (
                   <span
                     key={i}
                     onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-1 px-2 py-1 rounded-full text-xs border"
-                    style={{
-                      borderColor: "var(--border-soft)",
-                      color: "var(--text)",
-                    }}
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border border-glass-border text-foreground bg-glass backdrop-blur-xl shadow-sm hover:border-primary/50 transition-colors"
                   >
-                    {techIcons[tech] || <Globe className="w-4 h-4" />}
+                    <span className="text-primary">{techIcons[tech] || <Globe className="w-4 h-4" />}</span>
                     {tech}
                   </span>
                 ))}
@@ -105,16 +95,16 @@ export default function ProjectsPage() {
 
               {/* Links (always visible) */}
               <div
-                className="flex gap-6 mt-4 text-sm"
+                className="flex gap-10 mt-8 text-sm font-bold relative z-10 border-t border-glass-border pt-6"
                 onClick={(e) => e.stopPropagation()}
               >
                 {proj.github && (
                   <a
                     href={proj.github}
                     target="_blank"
-                    className="flex items-center gap-1 hover:text-cyan-500 transition"
+                    className="flex items-center gap-2.5 text-foreground hover:text-primary transition-all duration-300 hover:scale-105 group/link"
                   >
-                    <FaGithub /> GitHub
+                    <FaGithub size={20} className="group-hover/link:animate-pulse" /> GitHub
                   </a>
                 )}
 
@@ -122,9 +112,9 @@ export default function ProjectsPage() {
                   <a
                     href={proj.link}
                     target="_blank"
-                    className="flex items-center gap-1 hover:text-green-500 transition"
+                    className="flex items-center gap-2.5 text-foreground hover:text-secondary transition-all duration-300 hover:scale-105 group/link"
                   >
-                    <Globe className="w-4 h-4" /> Live
+                    <Globe size={20} className="group-hover/link:animate-pulse" /> Live
                   </a>
                 )}
               </div>
@@ -136,14 +126,17 @@ export default function ProjectsPage() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
                     className="overflow-hidden"
                   >
-                    <ul className="mt-5 pl-5 list-disc text-sm space-y-2 text-[var(--muted-2)]">
-                      {proj.highlights.map((point, i) => (
-                        <li key={i}>{point}</li>
-                      ))}
-                    </ul>
+                    <div className="pt-8">
+                      <h4 className="text-sm font-bold text-primary uppercase tracking-widest mb-4">Key Features</h4>
+                      <ul className="pl-5 list-disc text-sm space-y-3 text-muted-foreground border-l-2 border-primary/30 relative z-10 font-medium">
+                        {proj.highlights.map((point, i) => (
+                          <li key={i} className="pl-2 marker:text-primary">{point}</li>
+                        ))}
+                      </ul>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>

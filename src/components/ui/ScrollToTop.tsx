@@ -29,13 +29,13 @@ export default function ScrollToTop() {
     group flex items-center justify-center
     w-12 h-12 rounded-full
     backdrop-blur shadow-lg
-    surface
+    glass-panel border border-glass-border
     overflow-hidden
     transition-all duration-300
-    hover:w-44
+    hover:w-44 hover:glass-panel-hover
   "
         >
-          <ArrowUp className="w-5 h-5 shrink-0" />
+          <ArrowUp className="w-5 h-5 shrink-0 text-foreground" />
 
           <span
             className="

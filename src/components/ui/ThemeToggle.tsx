@@ -61,13 +61,13 @@ export default function ThemeToggle() {
     group flex items-center justify-center
     w-12 h-12 rounded-full
     backdrop-blur shadow-lg
-    surface
+    glass-panel border border-glass-border
     overflow-hidden
     transition-all duration-300
-    hover:w-40
+    hover:w-40 hover:glass-panel-hover
   "
     >
-      <span className="text-lg shrink-0">{isLight ? "🌙" : "☀️"}</span>
+      <span className="text-xl shrink-0">{isLight ? "☀️" : "🌙"}</span>
 
       <span
         className="

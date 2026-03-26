@@ -1,139 +1,136 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import React from "react";
 import { motion } from "framer-motion";
-import { FaLaptopCode, FaBriefcase, FaGraduationCap } from "react-icons/fa";
+import { FaLaptopCode, FaBriefcase, FaGraduationCap, FaRocket, FaFire, FaCode } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
+
+const StatCard = ({ icon, value, label, delay }: { icon: any; value: string; label: string; delay: number }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay }}
+    className="flex flex-col items-center justify-center p-4 rounded-2xl glass-panel border border-glass-border shadow-sm group hover:border-primary/50 transition-colors"
+  >
+    <div className="text-primary mb-2 text-xl group-hover:scale-110 transition-transform">{icon}</div>
+    <div className="text-xl font-black text-foreground">{value}</div>
+    <div className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">{label}</div>
+  </motion.div>
+);
+
+const NavCard = ({ href, icon, title, colorClass }: { href: string; icon: any; title: string; colorClass: string }) => (
+  <motion.div whileHover={{ y: -5, scale: 1.05 }} className="flex-1">
+    <Link
+      href={href}
+      className={`flex flex-col items-center gap-2 p-4 rounded-2xl glass-panel border border-glass-border hover:glass-panel-hover transition-all duration-300 shadow-md ${colorClass}`}
+    >
+      <div className="text-2xl">{icon}</div>
+      <span className="text-xs font-bold text-foreground">{title}</span>
+    </Link>
+  </motion.div>
+);
 
 export default function About() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => setLoaded(true), []);
-
   return (
-    <section id="about" className="w-full max-w-[1200px] p-6 sm:px-12 mx-auto">
-      <div className="grid md:grid-cols-2 gap-10 items-start">
-        {/* Left side: About Text */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: loaded ? 1 : 0, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-        >
-          <h2
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4"
-            style={{ color: "var(--text)" }}
-          >
-            About Me
-          </h2>
+    <section id="about" className="relative w-full py-24 px-6 sm:px-12 overflow-hidden">
+      {/* Decorative Blur */}
+      <div className="absolute top-1/2 left-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
 
-          <p
-            className="text-sm md:text-base leading-relaxed mb-4"
-            style={{ color: "var(--muted-2)" }}
-          >
-            Hey! I’m{" "}
-            <strong className="text-cyan-600 dark:text-cyan-400">
-              Himanshu Yadav
-            </strong>
-            , a <strong>Frontend Developer</strong> focused on building clean,
-            performant, and production-ready web applications. I primarily work
-            with <strong>React</strong> and <strong>Next.js</strong>, paying
-            close attention to UI structure, performance, and real-world
-            usability.
-          </p>
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid lg:grid-cols-12 gap-16 items-center">
 
-          <p
-            className="text-sm md:text-base leading-relaxed mb-4"
-            style={{ color: "var(--muted-2)" }}
-          >
-            Through hands-on projects, I’ve worked extensively with the
-            <strong> Next.js App Router</strong>, implementing features like
-            server-side rendering, dynamic routing, SEO optimization, and
-            client–server separation. I enjoy designing interfaces that feel
-            intuitive while remaining scalable and maintainable.
-          </p>
-
-          <p
-            className="text-sm md:text-base leading-relaxed"
-            style={{ color: "var(--muted-2)" }}
-          >
-            My workflow includes <strong>Tailwind CSS</strong> and
-            component-based design systems, along with tools like{" "}
-            <strong>Git/GitHub</strong> for collaboration and{" "}
-            <strong>Vercel</strong> for deployment. I also have experience
-            integrating APIs and services like <strong>Firebase</strong>,
-            handling real production issues, and continuously improving
-            performance and accessibility.
-          </p>
-        </motion.div>
-
-        {/* Right side: Cards */}
-        <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: loaded ? 1 : 0, x: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
-          className="grid gap-6"
-        >
-          {/* Skills & Tools */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              href="/skills-tools"
-              className="flex items-center gap-4 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer surface-2"
+          {/* Left: Content & Stats */}
+          <div className="lg:col-span-7 space-y-10 order-2 lg:order-1 text-left">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
             >
-              <FaLaptopCode className="text-2xl sm:text-3xl text-cyan-600 dark:text-cyan-400" />
-              <div>
-                <h3
-                  className="text-base sm:text-lg md:text-xl font-semibold"
-                  style={{ color: "var(--text)" }}
-                >
-                  Skills & Tools
-                </h3>
-                <p className="text-xs sm:text-sm md:text-base text-muted">
-                  Explore my core tech stack & favorite tools.
+              <h1 className="text-4xl md:text-6xl font-black text-gradient leading-tight tracking-tight mb-8">
+                Crafting High-Performance <br /> Digital Experiences
+              </h1>
+
+              <div className="space-y-6 text-lg text-muted-foreground font-medium leading-relaxed max-w-2xl">
+                <p>
+                  Hey, I’m <span className="text-primary font-bold">Himanshu Yadav</span>.
+                  I’m a Frontend Developer specializing in building scalable
+                  and production-grade web applications using
+                  <span className="text-foreground"> React</span> and
+                  <span className="text-foreground"> Next.js</span>.
+                </p>
+                <p>
+                  My focus is on bridging the gap between design and functionality,
+                  ensuring every interaction is purposeful, fast, and accessible.
+                  I thrive on solving complex frontend challenges with elegant,
+                  maintainable code.
                 </p>
               </div>
-            </Link>
+            </motion.div>
+
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-xl">
+              <StatCard icon={<FaRocket />} value="6+" label="Core Projects" delay={0.2} />
+              <StatCard icon={<FaCode />} value="10+" label="Tools Used" delay={0.3} />
+              <StatCard icon={<FaFire />} value="100%" label="Focused on UX" delay={0.4} />
+            </div>
+
+            {/* In-Section Navigation */}
+            <div className="pt-6">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-6">Explore More</h3>
+              <div className="flex flex-wrap gap-4 sm:flex-nowrap">
+                <NavCard
+                  href="/skills-tools"
+                  icon={<FaLaptopCode className="text-cyan-500" />}
+                  title="Skills & Tools"
+                  colorClass="hover:shadow-cyan-500/10"
+                />
+                <NavCard
+                  href="/projects"
+                  icon={<FaBriefcase className="text-violet-500" />}
+                  title="Work Archive"
+                  colorClass="hover:shadow-violet-500/10"
+                />
+                <NavCard
+                  href="/experience"
+                  icon={<FaGraduationCap className="text-emerald-500" />}
+                  title="My Journey"
+                  colorClass="hover:shadow-emerald-500/10"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Premium Illustration */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: "circOut" }}
+            className="lg:col-span-5 order-1 lg:order-2 relative"
+          >
+            <div className="relative aspect-square w-full max-w-[500px] mx-auto">
+              {/* Image Frame */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-[40px] blur-2xl animate-pulse" />
+              <div className="relative h-full w-full rounded-[40px] overflow-hidden border border-glass-border shadow-2xl glass-panel">
+                <Image
+                  src="/about_3d_developer_illustration.png"
+                  alt="Developer Workspace Illustration"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  priority
+                />
+              </div>
+
+              {/* Decorative floating shapes */}
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary/20 rounded-full blur-xl animate-bounce" />
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-secondary/20 rounded-full blur-xl animate-bounce delay-1000" />
+            </div>
           </motion.div>
 
-          {/* Showcase */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              href="/projects"
-              className="flex items-center gap-4 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer surface-2"
-            >
-              <FaBriefcase className="text-2xl sm:text-3xl text-indigo-600 dark:text-indigo-400" />
-              <div>
-                <h3
-                  className="text-base sm:text-lg md:text-xl font-semibold"
-                  style={{ color: "var(--text)" }}
-                >
-                  Showcase
-                </h3>
-                <p className="text-xs sm:text-sm md:text-base text-muted">
-                  Take a look at some of my favorite projects.
-                </p>
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* Experience & Education */}
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              href="/experience"
-              className="flex items-center gap-4 p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer surface-2"
-            >
-              <FaGraduationCap className="text-2xl sm:text-3xl text-green-600 dark:text-green-400" />
-              <div>
-                <h3
-                  className="text-base sm:text-lg md:text-xl font-semibold"
-                  style={{ color: "var(--text)" }}
-                >
-                  Experience & Education
-                </h3>
-                <p className="text-xs sm:text-sm md:text-base text-muted">
-                  Learn about my journey and professional growth.
-                </p>
-              </div>
-            </Link>
-          </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

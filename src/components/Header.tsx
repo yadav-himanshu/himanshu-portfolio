@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   FaHome,
   FaUser,
@@ -17,11 +18,12 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { id: "home", label: "Home", icon: <FaHome /> },
     { id: "about", label: "About", icon: <FaUser /> },
-    { id: "skills", label: "Skills", icon: <FaCode /> },
+    { id: "skill", label: "Skills", icon: <FaCode /> },
     { id: "ExperienceTimeline", label: "Experience", icon: <FaBriefcase /> },
     { id: "showcase", label: "Showcase", icon: <FaProjectDiagram /> },
     { id: "contact", label: "Contact", icon: <FaEnvelope /> },
@@ -51,6 +53,25 @@ const Header = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Click outside to close
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+
+    if (menuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [menuOpen]);
+
   const handleClick = (id: string) => {
     const section = document.getElementById(id);
     if (section) section.scrollIntoView({ behavior: "smooth" });
@@ -59,57 +80,34 @@ const Header = () => {
 
   return (
     <header
-      className={[
-        "fixed top-0 left-0 w-full z-50 transition-all duration-300",
-        scrolled
-          ? "backdrop-blur-md border-b"
-          : "bg-transparent border-transparent",
-      ].join(" ")}
-      style={
-        scrolled
-          ? {
-              // replaces: bg-white/60 dark:bg-gray-900/60 + borders
-              backgroundColor: "color-mix(in srgb, var(--bg) 60%, transparent)",
-              borderColor: "var(--border-soft)",
-            }
-          : undefined
-      }
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-50 transition-all duration-300 rounded-2xl border ${scrolled ? "glass-panel py-2 shadow-lg" : "bg-transparent border-transparent py-4"
+        }`}
     >
-      <nav className="container mx-auto flex justify-between items-center py-4 px-6">
+      <nav className="flex justify-between items-center px-6">
         {/* Logo */}
         <Link
           href="/"
-          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 hover:opacity-90 transition-opacity"
+          className="text-2xl font-black text-gradient hover:opacity-90 transition-opacity tracking-tighter"
         >
           &lt;Himanshu/&gt;
         </Link>
 
         {/* Desktop Nav */}
-        <ul
-          className="hidden md:flex space-x-8 font-medium items-center"
-          style={{ color: "var(--text)" }}
-        >
+        <ul className="hidden md:flex space-x-1 font-bold items-center text-foreground">
           {navLinks.map((link) => (
             <li key={link.id}>
               <button
                 onClick={() => handleClick(link.id)}
-                className={[
-                  "transition-colors",
-                  activeSection === link.id ? "font-bold" : "",
-                ].join(" ")}
-                style={{
-                  color: activeSection === link.id ? "#22d3ee" : "var(--text)", // cyan-400ish
-                }}
-                onMouseEnter={(e) => {
-                  if (activeSection !== link.id)
-                    e.currentTarget.style.color = "#3b82f6"; // blue-500
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color =
-                    activeSection === link.id ? "#22d3ee" : "var(--text)";
-                }}
+                className={`relative px-4 py-2 rounded-xl transition-all duration-300 text-sm hover:bg-foreground/5 ${activeSection === link.id ? "text-primary" : "text-foreground/70"
+                  }`}
               >
                 {link.label}
+                {activeSection === link.id && (
+                  <motion.div
+                    layoutId="activeNav"
+                    className="absolute bottom-0 left-2 right-2 h-0.5 bg-primary rounded-full"
+                  />
+                )}
               </button>
             </li>
           ))}
@@ -119,55 +117,55 @@ const Header = () => {
         <div className="flex items-center gap-4 md:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="focus:outline-none"
-            style={{ color: "var(--text)" }}
+            className={`p-2 rounded-xl transition-all duration-300 ${menuOpen ? "bg-primary text-white" : "text-foreground hover:bg-foreground/5"
+              }`}
             aria-label={menuOpen ? "Close menu" : "Open menu"}
           >
-            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Dropdown */}
-      {menuOpen && (
-        <div
-          className="md:hidden border-t px-6 py-4 font-medium shadow-lg transition-all duration-300"
-          style={{
-            backgroundColor: "var(--card-2)",
-            color: "var(--text)",
-            borderColor: "var(--border-soft)",
-          }}
-        >
-          <div
-            className="flex flex-col divide-y"
-            style={{ borderColor: "var(--border-soft)" }}
-          >
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => handleClick(link.id)}
-                className={[
-                  "flex items-center gap-2 py-3 transition-colors",
-                  activeSection === link.id ? "font-bold" : "",
-                ].join(" ")}
-                style={{
-                  color: activeSection === link.id ? "#22d3ee" : "var(--text)",
-                }}
-                onMouseEnter={(e) => {
-                  if (activeSection !== link.id)
-                    e.currentTarget.style.color = "#3b82f6";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color =
-                    activeSection === link.id ? "#22d3ee" : "var(--text)";
-                }}
-              >
-                {link.icon} {link.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 bg-background/40 backdrop-blur-sm z-[-1] md:hidden"
+            />
+
+            <motion.div
+              ref={menuRef}
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="absolute top-[110%] left-0 w-full glass-panel border border-glass-border rounded-2xl p-2 mt-2 shadow-2xl z-40 md:hidden"
+            >
+              <div className="grid grid-cols-2 gap-2">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.id}
+                    onClick={() => handleClick(link.id)}
+                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300 ${activeSection === link.id
+                        ? "bg-primary/10 text-primary border border-primary/20 shadow-sm"
+                        : "text-foreground/70 hover:bg-foreground/5 border border-transparent"
+                      }`}
+                  >
+                    <span className="text-xl">{link.icon}</span>
+                    <span className="text-xs font-bold">{link.label}</span>
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

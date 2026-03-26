@@ -1,147 +1,138 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { skills, tools } from "@/data/toolsAndSkills";
 
-export default function ToolsAndSkills() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => setLoaded(true), []);
+const SliderCard = ({ item, index }: { item: any; index: number }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <section id="skill" className="w-full max-w-[1200px] p-6 sm:px-12 mx-auto">
-      {/* Skills Slider */}
-      <div>
-        <h3
-          className="text-2xl font-semibold mb-4"
-          style={{ color: "var(--text)" }}
-        >
-          Skills
-        </h3>
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      className="min-w-[150px] md:min-w-[180px] flex-shrink-0 p-6 rounded-3xl flex flex-col items-center justify-center transition-all duration-300 glass-panel hover:glass-panel-hover border border-glass-border shadow-md group relative overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div style={{ transform: "translateZ(30px)" }} className="text-5xl mb-3 group-hover:scale-110 transition-transform duration-300 relative z-10">
+        {item.icon}
+      </div>
+      <div style={{ transform: "translateZ(50px)" }} className="text-sm font-bold text-foreground relative z-10">
+        {item.label}
+      </div>
+    </motion.div>
+  );
+};
 
-        <div className="relative overflow-hidden slider">
-          <div className="slider-track flex gap-6 is-sliding">
-            {skills.concat(skills).map((s, i) => {
-              const isDuplicate = i >= skills.length;
-              return (
-                <div
-                  key={`skill-${i}`}
-                  aria-hidden={isDuplicate}
-                  className="min-w-[140px] md:min-w-[160px] flex-shrink-0 p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center transition-transform hover:scale-105"
-                  style={{
-                    backgroundColor: "var(--card-2)",
-                    border: "1px solid var(--border-soft)",
-                  }}
-                >
-                  <div className="text-4xl">{s.icon}</div>
+export default function ToolsAndSkills() {
+  const skillsRow1 = skills.slice(0, Math.ceil(skills.length / 2));
+  const skillsRow2 = skills.slice(Math.ceil(skills.length / 2));
 
-                  <div
-                    className="mt-3 text-sm text-center"
-                    style={{ color: "var(--text)" }}
-                  >
-                    {s.label}
-                  </div>
+  const toolsRow1 = tools.slice(0, Math.ceil(tools.length / 2));
+  const toolsRow2 = tools.slice(Math.ceil(tools.length / 2));
 
-                  <p
-                    className="text-xs text-center mt-2"
-                    style={{ color: "var(--muted)" }}
-                  >
-                    {s.description}
-                  </p>
-                </div>
-              );
-            })}
+  return (
+    <section id="skill" className="w-full max-w-[1400px] py-24 px-6 sm:px-12 mx-auto overflow-hidden">
+
+      {/* Skills Section */}
+      <div className="mb-20">
+        <div className="flex items-center justify-between mb-12">
+          <h3 className="text-3xl md:text-5xl font-black text-gradient tracking-tight">Expertise</h3>
+          <a href="/skills-tools" className="text-sm font-bold text-primary hover:underline transition-all">
+            View All Details →
+          </a>
+        </div>
+
+        {/* Outer Slider Row 1 (Left) */}
+        <div className="relative overflow-hidden slider mb-8">
+          <div className="slider-track flex gap-8 is-sliding">
+            {[...skillsRow1, ...skillsRow1, ...skillsRow1].map((s, i) => (
+              <SliderCard key={`skill-r1-${i}`} item={s} index={i} />
+            ))}
           </div>
         </div>
-      </div>
 
-      <div className="mt-4 text-right">
-        <a
-          href="/skills-tools"
-          className="px-4 py-2 rounded-lg text-white text-sm transition"
-          style={{ backgroundColor: "#2563eb" }} // blue-600
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.backgroundColor = "#1d4ed8")
-          } // blue-700
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "#2563eb")
-          }
-        >
-          See All Skills
-        </a>
-      </div>
-
-      {/* Tools Slider */}
-      <div className="mt-10">
-        <h3
-          className="text-2xl font-semibold mb-4"
-          style={{ color: "var(--text)" }}
-        >
-          Tools
-        </h3>
-
+        {/* Outer Slider Row 2 (Right) */}
         <div className="relative overflow-hidden slider">
-          <div className="slider-track flex gap-6 is-sliding-reverse">
-            {tools.concat(tools).map((t, i) => (
-              <div
-                key={`tool-${i}`}
-                className="min-w-[140px] md:min-w-[160px] flex-shrink-0 p-4 rounded-2xl shadow-sm flex flex-col items-center justify-center transition-transform hover:scale-105"
-                style={{
-                  backgroundColor: "var(--card-2)",
-                  border: "1px solid var(--border-soft)",
-                }}
-              >
-                <div className="text-4xl">{t.icon}</div>
-
-                <div
-                  className="mt-3 text-sm text-center"
-                  style={{ color: "var(--text)" }}
-                >
-                  {t.label}
-                </div>
-
-                <p
-                  className="text-xs text-center mt-2"
-                  style={{ color: "var(--muted)" }}
-                >
-                  {t.description}
-                </p>
-              </div>
+          <div className="slider-track flex gap-8 is-sliding-reverse">
+            {[...skillsRow2, ...skillsRow2, ...skillsRow2].map((s, i) => (
+              <SliderCard key={`skill-r2-${i}`} item={s} index={i} />
             ))}
           </div>
         </div>
       </div>
 
-      <div className="mt-4 text-right">
-        <a
-          href="/skills-tools"
-          className="px-4 py-2 rounded-lg text-white text-sm transition"
-          style={{ backgroundColor: "#16a34a" }} // green-600
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.backgroundColor = "#15803d")
-          } // green-700
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor = "#16a34a")
-          }
-        >
-          See All Tools
-        </a>
+      {/* Tools Section */}
+      <div>
+        <div className="flex items-center justify-between mb-12">
+          <h3 className="text-3xl md:text-5xl font-black text-gradient tracking-tight">Modern Toolbox</h3>
+          <a href="/skills-tools" className="text-sm font-bold text-secondary hover:underline transition-all">
+            View All Tech →
+          </a>
+        </div>
+
+        {/* Outer Slider Row 1 (Left) */}
+        <div className="relative overflow-hidden slider mb-8">
+          <div className="slider-track flex gap-8 is-sliding">
+            {[...toolsRow1, ...toolsRow1, ...toolsRow1].map((t, i) => (
+              <SliderCard key={`tool-r1-${i}`} item={t} index={i} />
+            ))}
+          </div>
+        </div>
+
+        {/* Outer Slider Row 2 (Right) */}
+        <div className="relative overflow-hidden slider">
+          <div className="slider-track flex gap-8 is-sliding-reverse">
+            {[...toolsRow2, ...toolsRow2, ...toolsRow2].map((t, i) => (
+              <SliderCard key={`tool-r2-${i}`} item={t} index={i} />
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Styles for continuous sliders (scoped) */}
+      {/* Global Slider Styles */}
       <style jsx>{`
         .slider {
-          --slider-speed: 35s; /* lower = faster */
+          --slider-speed: 45s; 
+          mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
         }
 
         .slider-track {
           display: flex;
-          gap: 1.25rem;
+          gap: 2rem;
           width: max-content;
           will-change: transform;
-        }
-
-        .slider-track > div {
-          flex: 0 0 auto;
         }
 
         .is-sliding {
@@ -153,35 +144,18 @@ export default function ToolsAndSkills() {
         }
 
         @keyframes moveSlider {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.33%); }
         }
 
         @keyframes moveSliderReverse {
-          0% {
-            transform: translateX(-50%);
-          }
-          100% {
-            transform: translateX(0);
-          }
+          0% { transform: translateX(-33.33%); }
+          100% { transform: translateX(0); }
         }
 
-        /* UX: pause on hover */
         .slider:hover .is-sliding,
         .slider:hover .is-sliding-reverse {
           animation-play-state: paused;
-        }
-
-        .slider-track::-webkit-scrollbar {
-          display: none;
-        }
-        .slider-track {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
         }
       `}</style>
     </section>
