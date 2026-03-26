@@ -1,106 +1,120 @@
-# 🚀 Portfolio Website
+# 🚀 Modern Developer Portfolio
 
-A personal portfolio showcasing my work, experience, and skills as a frontend-focused developer. Built with modern web technologies, smooth animations, and a clean UI to reflect real-world product development standards.
+A high-fidelity, interactive personal portfolio designed to showcase professional experience, technical skills, and key projects. Built with a focus on performance, aesthetics, and a premium user experience using **Next.js 16 (Turbopack)**, **TypeScript**, and **Tailwind CSS 4**.
+
+> [!NOTE]
+> This portfolio is a living demonstration of modern frontend architecture, featuring glassmorphism, smooth motion effects, and production-ready code standards.
 
 ---
 
 ## 🔗 Live Demo
 
-👉 *https://himanshu-portfolio-pink.vercel.app*
+✨ **Explore the site:** [himanshu-portfolio-pink.vercel.app](https://himanshu-portfolio-pink.vercel.app)
 
 ---
 
 ## 🛠 Tech Stack
 
-- Framework: Next.js (App Router)
+### Core Frameworks
+- **Next.js 16 (App Router)**: Utilizing Turbopack for lightning-fast builds and optimized rendering.
+- **React 19**: Leveraging the latest React features for efficient state management and component lifecycle.
+- **TypeScript**: Ensuring type safety and scalable architecture.
 
-- Language: TypeScript, JavaScript
+### UI & Styling
+- **Tailwind CSS 4**: Modern utility-first styling with high-performance CSS processing.
+- **Framer Motion**: Powering smooth, high-frame-rate animations and transitions.
+- **Lucide React & React Icons**: Comprehensive, accessible iconography.
+- **Swiper.js**: Responsive, touch-enabled sliders for skills and project showcases.
 
-- Styling: Tailwind CSS
-
-- Animations: Framer Motion
-
-- UI Utilities: ShadCN UI
-
-- State & Logic: React Hooks
-
-- Deployment: Vercel
+### Tools & Utilities
+- **Nodemailer**: Handling server-side contact form submissions.
+- **ESLint & Prettier**: Maintaining code quality and consistent formatting.
+- **Vercel**: Optimized deployment and hosting.
 
 ---
 
-## ✨ Features
+## ✨ Key Features
 
-- Responsive layout across all devices
+- 🌓 **Dynamic Theming**: Custom dark and light mode toggle with persistent user preference via `localStorage`.
+- 📱 **Fully Responsive**: Meticulously crafted for mobile, tablet, and desktop viewports.
+- 🎭 **Glassmorphic Design**: High-fidelity UI with blurred backgrounds, subtle gradients, and premium look-and-feel.
+- ⏱️ **Interactive Timeline**: Visual representation of experience and education using a custom vertical timeline.
+- ✉️ **Contact System**: Fully functional contact form with real-time feedback and server-side email integration.
+- 🚀 **Performance Optimized**: Leveraging Next.js image optimization, fonts, and streamlined component rendering.
+- 🔍 **SEO Ready**: Semantic HTML5 structure with optimized metadata and search engine visibility.
 
-- Smooth page and scroll-based animations
+---
 
-- Experience & education timeline
+## 📂 Project Structure
 
-- Dark / light theme toggle
-
-- Scroll-to-top interaction
-
-- SEO-friendly structure (metadata, semantic HTML)
-
-- Reusable and scalable component architecture
+```text
+├── src/
+│   ├── app/            # Next.js App Router (pages, layout, globals)
+│   ├── components/     # Reusable UI components (About, Header, Footer, etc.)
+│   │   └── ui/         # Atomic UI elements (ThemeToggle, ScrollToTop)
+│   ├── data/           # Structured data for projects, skills, and timeline
+│   └── lib/            # Utility functions and shared logic
+├── public/             # Static assets (images, favicons)
+└── tailwind.config.ts  # Tailwind CSS configuration
+```
 
 ---
 
 ## ⚙️ Setup & Installation
 
-1. Clone the repository
+### Prerequisites
+- Node.js (Latest LTS recommended)
+- npm or yarn
 
-```bash
-git clone https://github.com/yadav-himanshu/himanshu-portfolio.git
-cd himanshu-portfolio
-```
+### Steps
 
-2. Install dependencies
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yadav-himanshu/himanshu-portfolio.git
+   cd himanshu-portfolio
+   ```
 
-```bash
-npm install
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-3. Run the app
+3. **Configure Environment Variables**
+   Create a `.env.local` file for contact form (Nodemailer) settings:
+   ```env
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASS=your-app-password
+   ```
 
-```bash
-npm run dev
-```
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 🧠 What This Project Demonstrates
-
-- Real-world Next.js App Router usage
-
-- Clear separation of UI, data, and logic
-
-- Component reusability and maintainability
-
-- Frontend performance and UX focus
-
-- Clean theming and design consistency
-
----
-
-## 📈 Future Improvements
-
-- Project filtering and tagging
-
-- Blog or case study section
-
-- Accessibility enhancements
-
-- Performance monitoring & analytics
+5. **Build for production**
+   ```bash
+   npm run build
+   npm start
+   ```
 
 ---
 
 ## 👨‍💻 Author
 
 **Himanshu Yadav**
-Frontend Developer
+*Frontend-focused Developer | Building high-fidelity digital experiences*
 
-- GitHub: *https://github.com/yadav-himanshu*
-- LinkedIn: *https://www.linkedin.com/in/himanshu-yadav-0706a1137*
+- **GitHub:** [@yadav-himanshu](https://github.com/yadav-himanshu)
+- **LinkedIn:** [Himanshu Yadav](https://www.linkedin.com/in/himanshu-yadav-0706a1137)
+- **Twitter/X:** [@himanshu_y](https://twitter.com/yadav-himanshu) *(Update with your actual handle if different)*
 
 ---
 
-If you're a recruiter or developer reviewing this project — feedback is always welcome! 🙌
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+*If you're a recruiter or developer reviewing this project — feedback is always welcome! 🙌*
