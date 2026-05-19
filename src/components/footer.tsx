@@ -7,6 +7,8 @@ import {
   FaEnvelope,
   FaPhone,
   FaArrowUp,
+  FaInstagram,
+  FaWhatsapp,
 } from "react-icons/fa";
 
 export default function Footer() {
@@ -73,6 +75,24 @@ export default function Footer() {
               aria-label="LinkedIn"
             >
               <FaLinkedin size={24} />
+            </a>
+            <a
+              href="https://instagram.com/i_himanshhu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground transition-all hover:text-primary hover:scale-110"
+              aria-label="Instagram"
+            >
+              <FaInstagram size={24} />
+            </a>
+            <a
+              href="https://wa.me/917499506824"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground transition-all hover:text-emerald-500 hover:scale-110"
+              aria-label="WhatsApp"
+            >
+              <FaWhatsapp size={24} />
             </a>
           </div>
 

@@ -3,15 +3,14 @@
 
 import ThemeToggle from "./ThemeToggle";
 import ScrollToTop from "./ScrollToTop";
+import WhatsAppButton from "./WhatsAppButton";
 
 export default function FloatingActions() {
   return (
-    <div
-      className="fixed bottom-8 right-8 z-[9999] 
-      flex flex-col gap-3 items-end"
-    >
+    <>
+      <WhatsAppButton />
       <ScrollToTop />
       <ThemeToggle />
-    </div>
+    </>
   );
 }

@@ -68,7 +68,7 @@ export default function ToolsAndSkills() {
       {/* Skills Section */}
       <div className="mb-20">
         <div className="flex items-center justify-between mb-12">
-          <h3 className="text-3xl md:text-5xl font-black text-gradient tracking-tight">Expertise</h3>
+          <h3 className="text-2xl md:text-4xl font-black text-gradient tracking-tight">Expertise</h3>
           <a href="/skills-tools" className="text-sm font-bold text-primary hover:underline transition-all">
             View All Details →
           </a>
@@ -96,7 +96,7 @@ export default function ToolsAndSkills() {
       {/* Tools Section */}
       <div>
         <div className="flex items-center justify-between mb-12">
-          <h3 className="text-3xl md:text-5xl font-black text-gradient tracking-tight">Modern Toolbox</h3>
+          <h3 className="text-2xl md:text-4xl font-black text-gradient tracking-tight">Modern Toolbox</h3>
           <a href="/skills-tools" className="text-sm font-bold text-secondary hover:underline transition-all">
             View All Tech →
           </a>

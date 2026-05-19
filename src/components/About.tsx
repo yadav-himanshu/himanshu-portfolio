@@ -12,22 +12,22 @@ const StatCard = ({ icon, value, label, delay }: { icon: any; value: string; lab
     whileInView={{ opacity: 1, scale: 1 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5, delay }}
-    className="flex flex-col items-center justify-center p-4 rounded-2xl glass-panel border border-glass-border shadow-sm group hover:border-primary/50 transition-colors"
+    className="flex flex-col items-center justify-center p-3 rounded-xl glass-panel border border-glass-border shadow-sm group hover:border-primary/30 transition-colors"
   >
-    <div className="text-primary mb-2 text-xl group-hover:scale-110 transition-transform">{icon}</div>
-    <div className="text-xl font-black text-foreground">{value}</div>
-    <div className="text-[10px] uppercase tracking-widest font-bold text-muted-foreground">{label}</div>
+    <div className="text-primary mb-1.5 text-lg group-hover:scale-105 transition-transform">{icon}</div>
+    <div className="text-lg font-black text-foreground">{value}</div>
+    <div className="text-[9px] uppercase tracking-widest font-bold text-muted-foreground">{label}</div>
   </motion.div>
 );
 
 const NavCard = ({ href, icon, title, colorClass }: { href: string; icon: any; title: string; colorClass: string }) => (
-  <motion.div whileHover={{ y: -5, scale: 1.05 }} className="flex-1">
+  <motion.div whileHover={{ y: -3, scale: 1.02 }} className="flex-1">
     <Link
       href={href}
-      className={`flex flex-col items-center gap-2 p-4 rounded-2xl glass-panel border border-glass-border hover:glass-panel-hover transition-all duration-300 shadow-md ${colorClass}`}
+      className={`flex flex-col items-center gap-1.5 p-3 rounded-xl glass-panel border border-glass-border hover:glass-panel-hover transition-all duration-300 shadow-md ${colorClass}`}
     >
-      <div className="text-2xl">{icon}</div>
-      <span className="text-xs font-bold text-foreground">{title}</span>
+      <div className="text-xl">{icon}</div>
+      <span className="text-[10px] font-bold text-foreground">{title}</span>
     </Link>
   </motion.div>
 );
@@ -44,16 +44,16 @@ export default function About() {
           {/* Left: Content & Stats */}
           <div className="lg:col-span-7 space-y-10 order-2 lg:order-1 text-left">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-6xl font-black text-gradient leading-tight tracking-tight mb-8">
+              <h1 className="text-2xl md:text-4xl font-black text-gradient leading-tight tracking-tight mb-6">
                 Crafting High-Performance <br /> Digital Experiences
               </h1>
 
-              <div className="space-y-6 text-lg text-muted-foreground font-medium leading-relaxed max-w-2xl">
+              <div className="space-y-4 text-sm sm:text-base text-muted-foreground font-medium leading-relaxed max-w-xl">
                 <p>
                   Hey, I’m <span className="text-primary font-bold">Himanshu Yadav</span>.
                   I’m a Frontend Developer specializing in building scalable
@@ -125,8 +125,8 @@ export default function About() {
               </div>
 
               {/* Decorative floating shapes */}
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary/20 rounded-full blur-xl animate-bounce" />
-              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-secondary/20 rounded-full blur-xl animate-bounce delay-1000" />
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary/5 rounded-full blur-lg" />
+              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-secondary/5 rounded-full blur-lg" />
             </div>
           </motion.div>
 

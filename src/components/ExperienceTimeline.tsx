@@ -38,19 +38,19 @@ const TimelineCard = ({ exp, index }: { exp: Experience; index: number }) => {
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="relative p-8 rounded-3xl glass-panel hover:glass-panel-hover border border-glass-border shadow-xl group transition-all duration-500 overflow-hidden"
+      className="relative p-6 rounded-2xl glass-panel hover:glass-panel-hover border border-glass-border shadow-xl group transition-all duration-500 overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      <div style={{ transform: "translateZ(40px)" }} className="relative z-10">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-black text-foreground group-hover:text-primary transition-colors">{exp.title}</h3>
-          <span className="text-[10px] font-bold uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+      <div style={{ transform: "translateZ(35px)" }} className="relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <h3 className="text-lg font-black text-foreground group-hover:text-primary transition-colors">{exp.title}</h3>
+          <span className="text-[9px] font-bold uppercase tracking-widest text-primary bg-primary/5 px-2.5 py-0.5 rounded-full border border-primary/15 self-start sm:self-auto">
             {exp.date}
           </span>
         </div>
-        <p className="text-sm font-bold text-muted-foreground mb-4">{exp.company}</p>
-        <p className="text-sm leading-relaxed text-muted-foreground group-hover:text-foreground transition-colors font-medium">
+        <p className="text-xs font-bold text-muted-foreground mb-3">{exp.company}</p>
+        <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground group-hover:text-foreground transition-colors font-medium">
           {exp.description}
         </p>
       </div>
@@ -77,16 +77,16 @@ export default function ExperienceTimeline() {
       <div className="max-w-6xl mx-auto relative">
 
         {/* Section Header */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-16">
           <motion.h2
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-4xl md:text-6xl font-black text-gradient tracking-tight mb-6"
+            className="text-2xl md:text-4xl font-black text-gradient tracking-tight mb-4"
           >
             The Journey
           </motion.h2>
-          <p className="text-muted-foreground font-medium max-w-xl mx-auto">
+          <p className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium max-w-lg mx-auto leading-relaxed">
             A timeline of professional milestones and educational growth,
             marking the evolution of skills and contributions.
           </p>
@@ -132,9 +132,9 @@ export default function ExperienceTimeline() {
                     initial={{ scale: 0, rotate: -45 }}
                     whileInView={{ scale: 1, rotate: 0 }}
                     viewport={{ once: true, amount: 0.8 }}
-                    className="w-12 h-12 rounded-2xl bg-background border-2 border-primary shadow-[0_0_20px_rgba(6,182,212,0.3)] flex items-center justify-center text-primary text-xl relative"
+                    className="w-10 h-10 rounded-xl bg-background border border-primary/45 shadow-[0_0_15px_rgba(14,165,233,0.15)] flex items-center justify-center text-primary text-lg relative"
                   >
-                    <div className="absolute inset-0 rounded-2xl bg-primary/20 animate-ping" />
+                    <div className="absolute inset-0 rounded-xl bg-primary/10 animate-ping" />
                     {exp.icon}
                   </motion.div>
                 </div>

@@ -11,6 +11,7 @@ import {
   FaBars,
   FaTimes,
   FaCode,
+  FaFileDownload,
 } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa6";
 
@@ -83,22 +84,24 @@ const Header = () => {
       className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-50 transition-all duration-300 rounded-2xl border ${scrolled ? "glass-panel py-2 shadow-lg" : "bg-transparent border-transparent py-4"
         }`}
     >
-      <nav className="flex justify-between items-center px-6">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="text-2xl font-black text-gradient hover:opacity-90 transition-opacity tracking-tighter"
-        >
-          &lt;Himanshu/&gt;
-        </Link>
+      <nav className="grid grid-cols-2 md:grid-cols-3 items-center px-6 w-full">
+        {/* Logo (Left Column) */}
+        <div className="flex justify-start">
+          <Link
+            href="/"
+            className="text-xl md:text-2xl font-black text-gradient hover:opacity-90 transition-opacity tracking-tighter"
+          >
+            &lt;Himanshu/&gt;
+          </Link>
+        </div>
 
-        {/* Desktop Nav */}
-        <ul className="hidden md:flex space-x-1 font-bold items-center text-foreground">
+        {/* Desktop Nav Links (Center Column) */}
+        <ul className="hidden md:flex justify-center space-x-1 font-bold items-center text-foreground">
           {navLinks.map((link) => (
             <li key={link.id}>
               <button
                 onClick={() => handleClick(link.id)}
-                className={`relative px-4 py-2 rounded-xl transition-all duration-300 text-sm hover:bg-foreground/5 ${activeSection === link.id ? "text-primary" : "text-foreground/70"
+                className={`relative px-3 py-1.5 rounded-lg transition-all duration-300 text-xs hover:bg-foreground/5 ${activeSection === link.id ? "text-primary" : "text-foreground/70"
                   }`}
               >
                 {link.label}
@@ -113,16 +116,28 @@ const Header = () => {
           ))}
         </ul>
 
-        {/* Mobile Menu Button */}
-        <div className="flex items-center gap-4 md:hidden">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className={`p-2 rounded-xl transition-all duration-300 ${menuOpen ? "bg-primary text-white" : "text-foreground hover:bg-foreground/5"
-              }`}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+        {/* Desktop CTA Button + Mobile Menu Trigger (Right Column) */}
+        <div className="flex justify-end items-center gap-3">
+          <a
+            href="/ResumeHimanshu.pdf"
+            download
+            className="hidden md:inline-flex justify-center items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all duration-300 border border-primary/20 hover:border-primary/40 bg-primary/5 text-primary hover:bg-primary hover:text-white hover:shadow-[0_0_15px_rgba(13,148,136,0.2)] cursor-pointer"
           >
-            {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
-          </button>
+            <FaFileDownload size={12} />
+            Resume
+          </a>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className={`p-2 rounded-xl transition-all duration-300 ${menuOpen ? "bg-primary text-white" : "text-foreground hover:bg-foreground/5"
+                }`}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+            >
+              {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+            </button>
+          </div>
         </div>
       </nav>
 

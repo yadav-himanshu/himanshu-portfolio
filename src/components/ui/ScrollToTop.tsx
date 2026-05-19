@@ -25,15 +25,15 @@ export default function ScrollToTop() {
           aria-label="Scroll to top"
           title="Scroll to top"
           className="
-    fixed bottom-6 right-6 z-50
-    group flex items-center justify-center
-    w-12 h-12 rounded-full
-    backdrop-blur shadow-lg
-    glass-panel border border-glass-border
-    overflow-hidden
-    transition-all duration-300
-    hover:w-44 hover:glass-panel-hover
-  "
+            fixed bottom-36 right-6 z-50
+            group flex items-center justify-center
+            w-12 h-12 rounded-full
+            backdrop-blur shadow-lg
+            glass-panel border border-glass-border
+            overflow-hidden
+            transition-all duration-300
+            hover:w-44 hover:glass-panel-hover
+          "
         >
           <ArrowUp className="w-5 h-5 shrink-0 text-foreground" />
 

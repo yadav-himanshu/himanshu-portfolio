@@ -16,17 +16,15 @@
   --color-glass-hover: var(--glass-hover);
   --color-glass-border: var(--glass-border);
 
-  /* Core Accents - Cyan to Violet Gradient Palette */
-  --color-primary: #06b6d4;
-  /* Cyan-500 */
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #8b5cf6;
-  /* Violet-500 */
+  /* Core Accents - Dynamic Unified Premium Palette (Mapped to variables below) */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--accent);
   --color-secondary-foreground: #ffffff;
 
-  /* Gradients */
-  --color-gradient-start: #06b6d4;
-  --color-gradient-end: #8b5cf6;
+  /* Gradients - Metallic Silver in Dark / Dark Platinum-Slate in Light */
+  --color-gradient-start: var(--gradient-start);
+  --color-gradient-end: var(--gradient-end);
 
   /* Muted / Subdued */
   --color-muted: var(--muted);
@@ -62,14 +60,14 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--color-glass-border);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 @utility glass-panel-hover {
   background-color: var(--color-glass-hover);
-  border-color: rgba(6, 182, 212, 0.3);
-  /* subtle cyan glow on border */
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+  border-color: rgba(14, 165, 233, 0.2);
+  /* subtle sky blue glow on border */
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.08);
 }
 
 @layer base {
@@ -89,65 +87,74 @@
     /* ~gray-700 */
     --border-soft: rgba(255, 255, 255, 0.08);
 
-    --primary: #ffffff;
-    --primary-foreground: #000000;
+    --primary: #0ea5e9;
+    --primary-foreground: #ffffff;
 
-    --accent: #22d3ee;
-    /* ~cyan-400 */
-    --accent-foreground: #000000;
+    --accent: #0284c7;
+    /* ~sky-600 */
+    --accent-foreground: #ffffff;
 
-    --ring: rgba(255, 255, 255, 0.25);
+    --ring: rgba(14, 165, 233, 0.15);
 
     /* Glass Vars */
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-hover: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-hover: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.06);
 
     /* Animated background dots */
-    --dots: #333333;
-    --dots-size: 50px;
-    --dots-shift: 100px;
-    --bg-glow-1: transparent;
-    --bg-glow-2: transparent;
+    --dots: rgba(255, 255, 255, 0.03);
+    --dots-size: 45px;
+    --dots-shift: 90px;
+    --bg-glow-1: rgba(14, 165, 233, 0.02); /* desaturated sky blue glow */
+    --bg-glow-2: rgba(14, 165, 233, 0.015); /* desaturated sky blue glow */
+
+    /* Metallic silver header gradient in dark mode */
+    --gradient-start: #ffffff;
+    --gradient-end: #94a3b8; /* Slate-400 */
   }
 
   html.light {
     --background: #ffffff;
-    --foreground: #0b0b0b;
+    --foreground: #0f172a; /* Slate 900 */
 
     --muted: #f8fafc;
     --muted-foreground: #4b5563;
-    /* ~gray-600 */
+    /* ~slate-600 */
 
     --card: #ffffff;
-    --card-foreground: #0b0b0b;
+    --card-foreground: #0f172a;
 
-    --border: #e5e7eb;
-    /* ~gray-200 */
-    --border-soft: rgba(0, 0, 0, 0.08);
+    --border: #e2e8f0;
+    /* ~slate-200 */
+    --border-soft: rgba(0, 0, 0, 0.06);
 
-    --primary: #0b0b0b;
+    --primary: #0284c7; /* Sky 600: high contrast in light mode */
     --primary-foreground: #ffffff;
 
-    --accent: #06b6d4;
-    /* ~cyan-500 */
+    --accent: #0369a1; /* Sky 700 */
     --accent-foreground: #ffffff;
 
-    --ring: rgba(0, 0, 0, 0.2);
+    --ring: rgba(14, 165, 233, 0.15);
 
     /* Glass Vars */
-    --glass-bg: rgba(0, 0, 0, 0.03);
-    --glass-hover: rgba(0, 0, 0, 0.06);
-    --glass-border: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(0, 0, 0, 0.015);
+    --glass-hover: rgba(0, 0, 0, 0.03);
+    --glass-border: rgba(0, 0, 0, 0.07);
 
-    /* Light mode animation vars */
-    --dots: rgba(2, 6, 17, 0.1);
-    --dots-size: 46px;
+    /* Animated background dots */
+    --dots: rgba(15, 23, 42, 0.06);
+    --dots-size: 45px;
     --dots-shift: 90px;
-    --bg-glow-1: rgba(34, 211, 238, 0.1);
-    /* cyan */
-    --bg-glow-2: rgba(59, 130, 246, 0.08);
-    /* blue */
+    --bg-glow-1: rgba(14, 165, 233, 0.04);
+    --bg-glow-2: rgba(14, 165, 233, 0.02);
+
+    /* Dark platinum-slate heading gradient in light mode */
+    --gradient-start: #0f172a; /* Slate 900: rich slate-black */
+    --gradient-end: #475569;   /* Slate 600 */
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {

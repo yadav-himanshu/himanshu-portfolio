@@ -57,15 +57,15 @@ export default function ThemeToggle() {
       aria-label="Toggle theme"
       title={isLight ? "Dark mode" : "Light mode"}
       className="
-    fixed bottom-6 left-6 z-50
-    group flex items-center justify-center
-    w-12 h-12 rounded-full
-    backdrop-blur shadow-lg
-    glass-panel border border-glass-border
-    overflow-hidden
-    transition-all duration-300
-    hover:w-40 hover:glass-panel-hover
-  "
+        fixed bottom-6 right-6 z-50
+        group flex items-center justify-center
+        w-12 h-12 rounded-full
+        backdrop-blur shadow-lg
+        glass-panel border border-glass-border
+        overflow-hidden
+        transition-all duration-300
+        hover:w-40 hover:glass-panel-hover
+      "
     >
       <span className="text-xl shrink-0">{isLight ? "☀️" : "🌙"}</span>
 

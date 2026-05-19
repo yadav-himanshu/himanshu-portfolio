@@ -60,7 +60,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-gradient drop-shadow-sm pb-1"
+          className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6 tracking-tight text-gradient drop-shadow-sm pb-1"
         >
           Let’s Connect
         </motion.h2>
