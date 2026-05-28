@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { Globe, ArrowRight, Code2, LayoutGrid } from "lucide-react";
 import { projects, devProjects, wordpressProjects, Project } from "@/data/projects";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useState, useEffect } from "react";
 
 // ── Uniform project card ──────────────────────────────────────────────────────
 function ProjectCard({ proj, idx }: { proj: Project; idx: number }) {
@@ -133,7 +133,16 @@ function ProjectSection({
 function ProjectsContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const tab = searchParams.get("tab") ?? "all";
+  const [tab, setTab] = useState("all");
+
+  useEffect(() => {
+    const urlTab = searchParams.get("tab");
+    if (urlTab) {
+      setTab(urlTab);
+    } else {
+      setTab("all");
+    }
+  }, [searchParams]);
 
   const handleBack = () => {
     if (window.history.length > 1) router.back();
@@ -147,7 +156,7 @@ function ProjectsContent() {
   ];
 
   return (
-    <section className="py-16 px-6 sm:px-12 max-w-[1100px] mx-auto min-h-screen relative">
+    <section className="py-16 px-6 sm:px-12 max-w-[1100px] mx-auto min-h-screen relative overflow-hidden">
       {/* Ambient glows */}
       <div className="absolute top-[10%] left-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[10%] right-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
@@ -177,11 +186,14 @@ function ProjectsContent() {
 
       {/* Tab Switcher */}
       <div className="flex justify-center mb-12 relative z-10 max-w-full overflow-x-auto no-scrollbar px-4">
-        <div className="inline-flex items-center gap-1 glass-panel border border-glass-border rounded-2xl p-1.5 shadow-sm select-none">
+        <div className="inline-flex items-center gap-1 relative glass-panel border border-glass-border rounded-2xl p-1.5 shadow-sm select-none">
           {tabs.map((t) => (
             <button
               key={t.id}
-              onClick={() => router.push(`/projects?tab=${t.id}`, { scroll: false })}
+              onClick={() => {
+                setTab(t.id);
+                router.push(`/projects?tab=${t.id}`, { scroll: false });
+              }}
               className={`relative px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-black whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-1.5 sm:gap-2 ${
                 tab === t.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
