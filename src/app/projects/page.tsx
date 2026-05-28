@@ -1,149 +1,236 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 import { FaGithub } from "react-icons/fa";
-import { Globe } from "lucide-react";
-import { projects } from "../../data/projectData";
-import { techIcons } from "../../data/techIcons";
+import { Globe, ArrowRight, Code2, LayoutGrid } from "lucide-react";
+import { projects, devProjects, wordpressProjects, Project } from "@/data/projects";
+import Link from "next/link";
+import { Suspense } from "react";
 
-export default function ProjectsPage() {
+// ── Uniform project card ──────────────────────────────────────────────────────
+function ProjectCard({ proj, idx }: { proj: Project; idx: number }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, delay: idx * 0.05 }}
+      className="group relative rounded-2xl glass-panel border border-glass-border p-5 hover:border-primary/25 hover:shadow-lg transition-all duration-400 flex flex-col overflow-hidden"
+    >
+      {/* Hover shimmer */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 pointer-events-none rounded-2xl" />
+
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3 relative z-10">
+        <span className="text-[9px] font-black text-primary/50 uppercase tracking-widest">
+          #{String(idx + 1).padStart(2, "0")}
+        </span>
+        {proj.category && (
+          <span className="px-2 py-0.5 rounded-full text-[8px] font-bold bg-foreground/5 border border-glass-border text-muted-foreground">
+            {proj.category}
+          </span>
+        )}
+      </div>
+
+      {/* Title */}
+      <h2 className="text-sm font-black text-foreground group-hover:text-primary transition-colors duration-300 leading-snug mb-2 relative z-10 line-clamp-2">
+        {proj.title}
+      </h2>
+
+      {/* Description */}
+      <p className="text-[11px] leading-relaxed text-muted-foreground font-medium line-clamp-3 mb-4 relative z-10 flex-1">
+        {proj.description}
+      </p>
+
+      {/* Tech tags */}
+      <div className="flex flex-wrap gap-1.5 mb-4 relative z-10">
+        {proj.techStack.slice(0, 3).map((tech) => (
+          <span
+            key={tech}
+            className="px-2 py-0.5 rounded-md text-[8px] font-bold bg-foreground/5 border border-glass-border text-muted-foreground"
+          >
+            {tech}
+          </span>
+        ))}
+        {proj.techStack.length > 3 && (
+          <span className="px-2 py-0.5 rounded-md text-[8px] font-bold bg-foreground/5 border border-glass-border text-muted-foreground">
+            +{proj.techStack.length - 3}
+          </span>
+        )}
+      </div>
+
+      {/* Actions */}
+      <div className="relative z-10 pt-3 border-t border-glass-border/40 flex items-center gap-2">
+        <Link
+          href={`/projects/${proj.slug}`}
+          className="flex-1 inline-flex items-center justify-between py-2 px-3 rounded-xl text-[10px] font-black text-foreground bg-foreground/5 border border-glass-border group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all duration-300"
+        >
+          View Details
+          <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+        </Link>
+        {proj.link && proj.link !== "#" && (
+          <a
+            href={proj.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-xl text-muted-foreground hover:text-foreground border border-glass-border bg-foreground/5 hover:bg-foreground/10 transition-all duration-300"
+            aria-label="Live site"
+          >
+            <Globe size={12} />
+          </a>
+        )}
+        {proj.github && (
+          <a
+            href={proj.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 rounded-xl text-muted-foreground hover:text-foreground border border-glass-border bg-foreground/5 hover:bg-foreground/10 transition-all duration-300"
+            aria-label="Source code"
+          >
+            <FaGithub size={12} />
+          </a>
+        )}
+      </div>
+    </motion.article>
+  );
+}
+
+// ── Section with label + uniform 3-col grid ───────────────────────────────────
+function ProjectSection({
+  label,
+  icon: Icon,
+  count,
+  items,
+  show,
+}: {
+  label: string;
+  icon: React.ElementType;
+  count: number;
+  items: Project[];
+  show: boolean;
+}) {
+  if (!show) return null;
+  return (
+    <div>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-2">
+          <Icon size={14} className="text-primary" />
+          <h2 className="text-base font-black text-foreground">{label}</h2>
+        </div>
+        <div className="flex-1 h-px bg-glass-border" />
+        <span className="text-xs font-bold text-muted-foreground">{count}</span>
+      </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {items.map((proj, idx) => (
+          <ProjectCard key={proj.slug} proj={proj} idx={idx} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Main content ──────────────────────────────────────────────────────────────
+function ProjectsContent() {
   const router = useRouter();
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab") ?? "all";
 
-  const toggle = (idx: number) => {
-    setOpenIndex((prev) => (prev === idx ? null : idx));
+  const handleBack = () => {
+    if (window.history.length > 1) router.back();
+    else router.push("/");
   };
 
+  const tabs = [
+    { id: "all",       label: "All",         count: projects.length },
+    { id: "dev",       label: "Dev / Code",  count: devProjects.length },
+    { id: "wordpress", label: "WordPress",   count: wordpressProjects.length },
+  ];
+
   return (
-    <section className="py-12 px-6 max-w-4xl mx-auto min-h-screen">
+    <section className="py-16 px-6 sm:px-12 max-w-[1100px] mx-auto min-h-screen relative">
+      {/* Ambient glows */}
+      <div className="absolute top-[10%] left-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[10%] right-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+
       {/* Top bar */}
-      <div className="flex items-center justify-between mb-12">
+      <div className="flex items-center justify-between mb-14 relative z-10">
         <button
-          onClick={() => router.back()}
-          className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 glass-panel glass-panel-hover border border-glass-border text-foreground flex items-center gap-2 shadow-lg"
+          onClick={handleBack}
+          className="px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 hover:scale-105 glass-panel hover:glass-panel-hover border border-glass-border text-foreground flex items-center gap-2 shadow-md cursor-pointer"
         >
           <span className="text-primary font-bold">←</span> Back
         </button>
-
-        <span className="text-sm font-semibold text-muted-foreground bg-glass px-5 py-2 rounded-full border border-glass-border shadow-sm backdrop-blur-md">
-          {projects.length} Projects
+        <span className="text-xs font-bold text-muted-foreground bg-glass px-5 py-2 rounded-full border border-glass-border shadow-sm backdrop-blur-md">
+          {projects.length} Works
         </span>
       </div>
 
-      <h1 className="text-4xl md:text-6xl font-extrabold mb-16 text-center text-gradient tracking-tight drop-shadow-sm">
-        All Projects
-      </h1>
+      {/* Hero */}
+      <div className="max-w-3xl mx-auto text-center mb-10 relative z-10">
+        <h1 className="text-2xl md:text-4xl font-black mb-4 text-gradient tracking-tight leading-tight">
+          Project Archive
+        </h1>
+        <p className="text-sm sm:text-base text-muted-foreground font-medium max-w-xl mx-auto leading-relaxed">
+          Frontend platforms, full-stack apps, and custom WordPress solutions — all in one place.
+        </p>
+      </div>
 
-      {/* Stacked list */}
-      <div className="flex flex-col gap-8">
-        {projects.map((proj, idx) => {
-          const isOpen = openIndex === idx;
-
-          return (
-            <motion.article
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="rounded-3xl border border-glass-border p-8 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer glass-panel glass-panel-hover group relative overflow-hidden"
-              onClick={() => toggle(idx)}
-              role="button"
-              tabIndex={0}
-              aria-expanded={isOpen}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") toggle(idx);
-              }}
+      {/* Tab Switcher */}
+      <div className="flex justify-center mb-12 relative z-10">
+        <div className="inline-flex items-center gap-1 glass-panel border border-glass-border rounded-2xl p-1.5 shadow-sm">
+          {tabs.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => router.push(`/projects?tab=${t.id}`, { scroll: false })}
+              className={`relative px-5 py-2 rounded-xl text-xs font-black transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+                tab === t.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
             >
-              {/* Hover Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Header */}
-              <div className="flex items-start justify-between gap-4 relative z-10">
-                <h3 className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                  {proj.title}
-                </h3>
-
+              {tab === t.id && (
                 <motion.span
-                  animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-xl text-muted-foreground bg-foreground/5 w-10 h-10 flex items-center justify-center rounded-full border border-glass-border shadow-inner"
-                >
-                  ▾
-                </motion.span>
-              </div>
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-primary rounded-xl z-0"
+                  transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                />
+              )}
+              <span className="relative z-10 flex items-center gap-1.5">
+                {t.id === "dev" && <Code2 size={11} />}
+                {t.id === "wordpress" && <LayoutGrid size={11} />}
+                {t.label}
+                <span className={`px-1.5 py-0.5 rounded-md text-[8px] font-black ${tab === t.id ? "bg-white/20" : "bg-foreground/5"}`}>
+                  {t.count}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-              {/* Description */}
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground relative z-10 font-medium">
-                {proj.description}
-              </p>
-
-              {/* Tech stack */}
-              <div className="flex flex-wrap gap-2 mt-6 relative z-10">
-                {proj.techStack.map((tech, i) => (
-                  <span
-                    key={i}
-                    onClick={(e) => e.stopPropagation()}
-                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold border border-glass-border text-foreground bg-glass backdrop-blur-xl shadow-sm hover:border-primary/50 transition-colors"
-                  >
-                    <span className="text-primary">{techIcons[tech] || <Globe className="w-4 h-4" />}</span>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Links (always visible) */}
-              <div
-                className="flex gap-10 mt-8 text-sm font-bold relative z-10 border-t border-glass-border pt-6"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {proj.github && (
-                  <a
-                    href={proj.github}
-                    target="_blank"
-                    className="flex items-center gap-2.5 text-foreground hover:text-primary transition-all duration-300 hover:scale-105 group/link"
-                  >
-                    <FaGithub size={20} className="group-hover/link:animate-pulse" /> GitHub
-                  </a>
-                )}
-
-                {proj.link && (
-                  <a
-                    href={proj.link}
-                    target="_blank"
-                    className="flex items-center gap-2.5 text-foreground hover:text-secondary transition-all duration-300 hover:scale-105 group/link"
-                  >
-                    <Globe size={20} className="group-hover/link:animate-pulse" /> Live
-                  </a>
-                )}
-              </div>
-
-              {/* Expandable highlights */}
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="pt-8">
-                      <h4 className="text-sm font-bold text-primary uppercase tracking-widest mb-4">Key Features</h4>
-                      <ul className="pl-5 list-disc text-sm space-y-3 text-muted-foreground border-l-2 border-primary/30 relative z-10 font-medium">
-                        {proj.highlights.map((point, i) => (
-                          <li key={i} className="pl-2 marker:text-primary">{point}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.article>
-          );
-        })}
+      {/* Grids */}
+      <div className="relative z-10 space-y-14">
+        <ProjectSection
+          label="Dev / Code Projects"
+          icon={Code2}
+          count={devProjects.length}
+          items={devProjects}
+          show={tab === "all" || tab === "dev"}
+        />
+        <ProjectSection
+          label="WordPress Sites"
+          icon={LayoutGrid}
+          count={wordpressProjects.length}
+          items={wordpressProjects}
+          show={tab === "all" || tab === "wordpress"}
+        />
       </div>
     </section>
+  );
+}
+
+export default function ProjectsPage() {
+  return (
+    <Suspense>
+      <ProjectsContent />
+    </Suspense>
   );
 }
