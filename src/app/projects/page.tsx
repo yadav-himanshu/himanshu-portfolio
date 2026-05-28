@@ -176,13 +176,13 @@ function ProjectsContent() {
       </div>
 
       {/* Tab Switcher */}
-      <div className="flex justify-center mb-12 relative z-10">
-        <div className="inline-flex items-center gap-1 glass-panel border border-glass-border rounded-2xl p-1.5 shadow-sm">
+      <div className="flex justify-center mb-12 relative z-10 max-w-full overflow-x-auto no-scrollbar px-4">
+        <div className="inline-flex items-center gap-1 glass-panel border border-glass-border rounded-2xl p-1.5 shadow-sm select-none">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => router.push(`/projects?tab=${t.id}`, { scroll: false })}
-              className={`relative px-5 py-2 rounded-xl text-xs font-black transition-all duration-300 cursor-pointer flex items-center gap-2 ${
+              className={`relative px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-black whitespace-nowrap transition-all duration-300 cursor-pointer flex items-center gap-1.5 sm:gap-2 ${
                 tab === t.id ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -193,11 +193,11 @@ function ProjectsContent() {
                   transition={{ type: "spring", stiffness: 350, damping: 28 }}
                 />
               )}
-              <span className="relative z-10 flex items-center gap-1.5">
-                {t.id === "dev" && <Code2 size={11} />}
-                {t.id === "wordpress" && <LayoutGrid size={11} />}
-                {t.label}
-                <span className={`px-1.5 py-0.5 rounded-md text-[8px] font-black ${tab === t.id ? "bg-white/20" : "bg-foreground/5"}`}>
+              <span className="relative z-10 flex items-center gap-1 sm:gap-1.5">
+                {t.id === "dev" && <Code2 size={10} className="sm:w-3 sm:h-3" />}
+                {t.id === "wordpress" && <LayoutGrid size={10} className="sm:w-3 sm:h-3" />}
+                <span>{t.label}</span>
+                <span className={`px-1.5 py-0.5 rounded-md text-[7px] sm:text-[8px] font-black ${tab === t.id ? "bg-white/20" : "bg-foreground/5"}`}>
                   {t.count}
                 </span>
               </span>
