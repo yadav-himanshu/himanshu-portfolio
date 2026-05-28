@@ -1,50 +1,25 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useSpring, useTransform, useMotionValue } from "framer-motion";
-import { experiences, Experience } from "@/data/ExperienceAndEducation";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { experiences, type Experience } from "@/data/experiences";
+import { getIcon } from "@/lib/iconMap";
 
-const TimelineCard = ({ exp, index }: { exp: Experience; index: number }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["5deg", "-5deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-5deg", "5deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
+function TimelineCard({ exp, index }: { exp: Experience; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: exp.side === "left" ? -50 : 50 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: index * 0.1 }}
       viewport={{ once: true, amount: 0.3 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformStyle: "preserve-3d",
-      }}
-      className="relative p-6 rounded-2xl glass-panel hover:glass-panel-hover border border-glass-border shadow-xl group transition-all duration-500 overflow-hidden"
+      className="relative p-6 rounded-2xl glass-panel border border-glass-border shadow-xl group transition-all duration-500 overflow-hidden hover:glass-panel-hover"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-      <div style={{ transform: "translateZ(35px)" }} className="relative z-10">
+      <div className="relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-          <h3 className="text-lg font-black text-foreground group-hover:text-primary transition-colors">{exp.title}</h3>
+          <h3 className="text-lg font-black text-foreground group-hover:text-primary transition-colors">
+            {exp.title}
+          </h3>
           <span className="text-[9px] font-bold uppercase tracking-widest text-primary bg-primary/5 px-2.5 py-0.5 rounded-full border border-primary/15 self-start sm:self-auto">
             {exp.date}
           </span>
@@ -56,27 +31,25 @@ const TimelineCard = ({ exp, index }: { exp: Experience; index: number }) => {
       </div>
     </motion.div>
   );
-};
+}
 
-export default function ExperienceTimeline() {
+export default function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end end"]
+    offset: ["start end", "end end"],
   });
 
   const scrollLineHeight = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   return (
-    <div ref={containerRef} className="w-full relative py-24 px-6 sm:px-12 overflow-hidden">
-      <div className="max-w-6xl mx-auto relative">
-
-        {/* Section Header */}
+    <div ref={containerRef} id="experience" className="w-full relative py-24 px-6 sm:px-12 overflow-hidden">
+      <div className="max-w-[1100px] mx-auto relative">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, scale: 0.95 }}
@@ -87,59 +60,52 @@ export default function ExperienceTimeline() {
             The Journey
           </motion.h2>
           <p className="text-xs sm:text-sm md:text-base text-muted-foreground font-medium max-w-lg mx-auto leading-relaxed">
-            A timeline of professional milestones and educational growth,
-            marking the evolution of skills and contributions.
+            A timeline of professional milestones and educational growth, marking the
+            evolution of skills and contributions.
           </p>
         </div>
 
-        {/* The Timeline Container */}
         <div className="relative">
-
-          {/* Central Progress Line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/[0.03] dark:bg-white/[0.03] -translate-x-1/2 hidden md:block" />
+          {/* Desktop center line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-foreground/[0.03] -translate-x-1/2 hidden md:block" />
           <motion.div
-            style={{
-              scaleY: scrollLineHeight,
-              originY: 0,
-            }}
+            style={{ scaleY: scrollLineHeight, originY: 0 }}
             className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-primary -translate-x-1/2 hidden md:block z-0"
           />
 
-          {/* Mobile Progress Line */}
-          <div className="absolute left-[24px] top-0 bottom-0 w-1 bg-foreground/[0.03] dark:bg-white/[0.03] md:hidden" />
+          {/* Mobile left line */}
+          <div className="absolute left-[24px] top-0 bottom-0 w-1 bg-foreground/[0.03] md:hidden" />
           <motion.div
-            style={{
-              scaleY: scrollLineHeight,
-              originY: 0,
-            }}
+            style={{ scaleY: scrollLineHeight, originY: 0 }}
             className="absolute left-[24px] top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-secondary to-primary md:hidden z-0"
           />
 
           {experiences.map((exp, i) => {
             const isLeft = exp.side === "left";
+            const iconEl = getIcon(exp.iconKey);
 
             return (
-              <div key={i} className="relative mb-20 md:mb-32 flex flex-col md:grid md:grid-cols-2 md:gap-x-24 items-center">
-
-                {/* Desktop alternate layout */}
+              <div
+                key={i}
+                className="relative mb-20 md:mb-32 flex flex-col md:grid md:grid-cols-2 md:gap-x-24 items-center"
+              >
                 <div className={`w-full ${isLeft ? "md:text-right" : "md:col-start-2"}`}>
                   <TimelineCard exp={exp} index={i} />
                 </div>
 
-                {/* The Center Icon Node */}
+                {/* Center icon node */}
                 <div className="absolute left-[24px] md:left-1/2 -translate-x-1/2 flex items-center justify-center z-20">
                   <motion.div
                     initial={{ scale: 0, rotate: -45 }}
                     whileInView={{ scale: 1, rotate: 0 }}
                     viewport={{ once: true, amount: 0.8 }}
-                    className="w-10 h-10 rounded-xl bg-background border border-primary/45 shadow-[0_0_15px_rgba(14,165,233,0.15)] flex items-center justify-center text-primary text-lg relative"
+                    className={`w-10 h-10 rounded-xl bg-background border border-primary/45 shadow-[0_0_15px_rgba(14,165,233,0.15)] flex items-center justify-center relative ${exp.iconColor}`}
                   >
                     <div className="absolute inset-0 rounded-xl bg-primary/10 animate-ping" />
-                    {exp.icon}
+                    {iconEl}
                   </motion.div>
                 </div>
 
-                {/* Spacer for secondary column on desktop */}
                 <div className={`hidden md:block ${isLeft ? "md:col-start-2" : "md:col-start-1"}`} />
               </div>
             );

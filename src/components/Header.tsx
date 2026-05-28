@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -14,95 +14,95 @@ import {
   FaFileDownload,
 } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa6";
+import Logo from "@/components/Logo";
 
-const Header = () => {
+const NAV_LINKS = [
+  { id: "home", label: "Home", icon: <FaHome /> },
+  { id: "about", label: "About", icon: <FaUser /> },
+  { id: "skills", label: "Skills", icon: <FaCode /> },
+  { id: "experience", label: "Experience", icon: <FaBriefcase /> },
+  { id: "showcase", label: "Showcase", icon: <FaProjectDiagram /> },
+  { id: "contact", label: "Contact", icon: <FaEnvelope /> },
+] as const;
+
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const menuRef = useRef<HTMLDivElement>(null);
 
-  const navLinks = [
-    { id: "home", label: "Home", icon: <FaHome /> },
-    { id: "about", label: "About", icon: <FaUser /> },
-    { id: "skill", label: "Skills", icon: <FaCode /> },
-    { id: "ExperienceTimeline", label: "Experience", icon: <FaBriefcase /> },
-    { id: "showcase", label: "Showcase", icon: <FaProjectDiagram /> },
-    { id: "contact", label: "Contact", icon: <FaEnvelope /> },
-  ];
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
 
-  // Scroll spy + header background
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+    let ticking = false;
 
-      const scrollPosition = window.scrollY + 150;
-      for (const link of navLinks) {
-        const section = document.getElementById(link.id);
-        if (section) {
-          const top = section.offsetTop;
-          const bottom = top + section.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < bottom) {
-            setActiveSection(link.id);
-            break;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 10);
+          const scrollPos = window.scrollY + 150;
+          for (const link of NAV_LINKS) {
+            const section = document.getElementById(link.id);
+            if (section) {
+              const { offsetTop, offsetHeight } = section;
+              if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
+                setActiveSection(link.id);
+                break;
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Click outside to close
+  // Close menu on outside click
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false);
-      }
+    if (!menuOpen) return;
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Element;
+      if (!target.closest("[data-mobile-menu]")) closeMenu();
     };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [menuOpen, closeMenu]);
 
-    if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [menuOpen]);
-
-  const handleClick = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) section.scrollIntoView({ behavior: "smooth" });
-    setMenuOpen(false);
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    closeMenu();
   };
 
   return (
     <header
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-5xl z-50 transition-all duration-300 rounded-2xl border ${scrolled ? "glass-panel py-2 shadow-lg" : "bg-transparent border-transparent py-4"
-        }`}
+      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-[1100px] z-50 transition-all duration-300 rounded-2xl border ${
+        scrolled
+          ? "glass-panel py-2 shadow-lg"
+          : "bg-transparent border-transparent py-4"
+      }`}
     >
       <nav className="grid grid-cols-2 md:grid-cols-3 items-center px-6 w-full">
-        {/* Logo (Left Column) */}
+        {/* Logo */}
         <div className="flex justify-start">
-          <Link
-            href="/"
-            className="text-xl md:text-2xl font-black text-gradient hover:opacity-90 transition-opacity tracking-tighter"
-          >
-            &lt;Himanshu/&gt;
+          <Link href="/" aria-label="Himanshu — Home">
+            <Logo textClassName="text-xl md:text-2xl" />
           </Link>
         </div>
 
-        {/* Desktop Nav Links (Center Column) */}
+        {/* Desktop Nav */}
         <ul className="hidden md:flex justify-center space-x-1 font-bold items-center text-foreground">
-          {navLinks.map((link) => (
+          {NAV_LINKS.map((link) => (
             <li key={link.id}>
               <button
-                onClick={() => handleClick(link.id)}
-                className={`relative px-3 py-1.5 rounded-lg transition-all duration-300 text-xs hover:bg-foreground/5 ${activeSection === link.id ? "text-primary" : "text-foreground/70"
-                  }`}
+                onClick={() => scrollTo(link.id)}
+                className={`relative px-3 py-1.5 rounded-lg transition-all duration-300 text-xs hover:bg-foreground/5 ${
+                  activeSection === link.id
+                    ? "text-primary"
+                    : "text-foreground/70"
+                }`}
               >
                 {link.label}
                 {activeSection === link.id && (
@@ -116,7 +116,7 @@ const Header = () => {
           ))}
         </ul>
 
-        {/* Desktop CTA Button + Mobile Menu Trigger (Right Column) */}
+        {/* CTA + Mobile toggle */}
         <div className="flex justify-end items-center gap-3">
           <a
             href="/ResumeHimanshu.pdf"
@@ -127,13 +127,16 @@ const Header = () => {
             Resume
           </a>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden" data-mobile-menu>
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className={`p-2 rounded-xl transition-all duration-300 ${menuOpen ? "bg-primary text-white" : "text-foreground hover:bg-foreground/5"
-                }`}
+              onClick={() => setMenuOpen((v) => !v)}
+              className={`p-2 rounded-xl transition-all duration-300 ${
+                menuOpen
+                  ? "bg-primary text-white"
+                  : "text-foreground hover:bg-foreground/5"
+              }`}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
             >
               {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
             </button>
@@ -144,45 +147,33 @@ const Header = () => {
       {/* Mobile Dropdown */}
       <AnimatePresence>
         {menuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 bg-background/40 backdrop-blur-sm z-[-1] md:hidden"
-            />
-
-            <motion.div
-              ref={menuRef}
-              initial={{ opacity: 0, scale: 0.95, y: -20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="absolute top-[110%] left-0 w-full glass-panel border border-glass-border rounded-2xl p-2 mt-2 shadow-2xl z-40 md:hidden"
-            >
-              <div className="grid grid-cols-2 gap-2">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.id}
-                    onClick={() => handleClick(link.id)}
-                    className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300 ${activeSection === link.id
-                        ? "bg-primary/10 text-primary border border-primary/20 shadow-sm"
-                        : "text-foreground/70 hover:bg-foreground/5 border border-transparent"
-                      }`}
-                  >
-                    <span className="text-xl">{link.icon}</span>
-                    <span className="text-xs font-bold">{link.label}</span>
-                  </button>
-                ))}
-              </div>
-            </motion.div>
-          </>
+          <motion.div
+            data-mobile-menu
+            initial={{ opacity: 0, scale: 0.95, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: -20 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="absolute top-[110%] left-0 w-full glass-panel border border-glass-border rounded-2xl p-2 mt-2 shadow-2xl z-40 md:hidden"
+          >
+            <div className="grid grid-cols-2 gap-2">
+              {NAV_LINKS.map((link) => (
+                <button
+                  key={link.id}
+                  onClick={() => scrollTo(link.id)}
+                  className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl transition-all duration-300 ${
+                    activeSection === link.id
+                      ? "bg-primary/10 text-primary border border-primary/20 shadow-sm"
+                      : "text-foreground/70 hover:bg-foreground/5 border border-transparent"
+                  }`}
+                >
+                  <span className="text-xl">{link.icon}</span>
+                  <span className="text-xs font-bold">{link.label}</span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
   );
-};
-
-export default Header;
+}

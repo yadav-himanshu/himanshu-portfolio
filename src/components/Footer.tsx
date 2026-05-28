@@ -1,12 +1,9 @@
-"use client";
-
 import {
   FaGithub,
   FaTwitter,
   FaLinkedin,
   FaEnvelope,
   FaPhone,
-  FaArrowUp,
   FaInstagram,
   FaWhatsapp,
 } from "react-icons/fa";
