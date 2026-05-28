@@ -1,5 +1,5 @@
 {
-  "name": "my-portfolio",
+  "name": "himanshu-portfolio",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,8 +16,7 @@
     "nodemailer": "^7.0.6",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-icons": "^5.5.0",
-    "swiper": "^12.0.2"
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
