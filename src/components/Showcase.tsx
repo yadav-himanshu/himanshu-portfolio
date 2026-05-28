@@ -81,11 +81,11 @@ function ProjectCard({ proj, onNavigate }: { proj: Project; onNavigate: () => vo
 }
 
 // ── Step-by-step carousel ─────────────────────────────────────────────────────
-const VISIBLE = 3; // cards visible at once on desktop
 const AUTO_DELAY = 4000;
 
 function ProjectCarousel({ items }: { items: Project[] }) {
   const router = useRouter();
+  const [visibleCount, setVisibleCount] = useState(3);
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
   const [paused, setPaused] = useState(false);
@@ -95,7 +95,28 @@ function ProjectCarousel({ items }: { items: Project[] }) {
   const touchStartX = useRef<number | null>(null);
 
   const total = items.length;
-  const maxIndex = Math.max(0, total - VISIBLE);
+  const maxIndex = Math.max(0, total - visibleCount);
+
+  // Handle dynamic sizing to ensure exactly one row is displayed
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setVisibleCount(1); // Mobile
+      } else if (window.innerWidth < 1024) {
+        setVisibleCount(2); // Tablet
+      } else {
+        setVisibleCount(3); // Desktop
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Clamp index if viewport changes shrink maxIndex
+  useEffect(() => {
+    setIndex((prev) => Math.min(prev, Math.max(0, total - visibleCount)));
+  }, [visibleCount, total]);
 
   const go = useCallback((dir: 1 | -1) => {
     setDirection(dir);
@@ -112,7 +133,7 @@ function ProjectCarousel({ items }: { items: Project[] }) {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [paused, maxIndex]);
 
-  const visible = items.slice(index, index + VISIBLE);
+  const visible = items.slice(index, index + visibleCount);
 
   const variants = {
     enter: (dir: number) => ({ x: dir > 0 ? 60 : -60, opacity: 0 }),

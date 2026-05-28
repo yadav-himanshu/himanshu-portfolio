@@ -153,7 +153,7 @@ export default function Header() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="absolute top-[110%] left-0 w-full glass-panel border border-glass-border rounded-2xl p-2 mt-2 shadow-2xl z-40 md:hidden"
+            className="absolute top-[110%] left-0 w-full bg-card/95 backdrop-blur-xl border border-glass-border rounded-2xl p-2 mt-2 shadow-2xl z-40 md:hidden"
           >
             <div className="grid grid-cols-2 gap-2">
               {NAV_LINKS.map((link) => (

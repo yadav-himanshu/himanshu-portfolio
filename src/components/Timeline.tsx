@@ -89,7 +89,7 @@ export default function Timeline() {
                 key={i}
                 className="relative mb-20 md:mb-32 flex flex-col md:grid md:grid-cols-2 md:gap-x-24 items-center"
               >
-                <div className={`w-full ${isLeft ? "md:text-right" : "md:col-start-2"}`}>
+                <div className={`w-full pl-14 md:pl-0 ${isLeft ? "md:text-right" : "md:col-start-2"}`}>
                   <TimelineCard exp={exp} index={i} />
                 </div>
 

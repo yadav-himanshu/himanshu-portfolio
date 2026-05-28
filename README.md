@@ -43,6 +43,11 @@ A high-fidelity, interactive personal portfolio designed to showcase professiona
 - 🚀 **Performance Optimized**: Leveraging Next.js image optimization, fonts, and streamlined component rendering.
 - 🔍 **SEO Ready**: Semantic HTML5 structure with optimized metadata and search engine visibility.
 
+### ⚡ Recent Production & Mobile Polish
+- 📱 **Layout Refinements**: Redesigned the mobile experience timeline with responsive padding to prevent text overlap, and increased the navbar dropdown background opacity to `95%` with deep backdrop blur (`backdrop-blur-xl`) to eliminate content bleed-through.
+- 🎠 **Showcase Optimizations**: Dynamically adjusts carousel visible count (1 on mobile, 2 on tablet, 3 on desktop) to enforce a clean single-row grid layout on all device widths.
+- 🚀 **Code Quality & Build Performance**: Resolved all production build warnings, pruned dead code, modularized and decoupled static project/experience data, and validated a seamless `npm run build` process using the Next.js Turbopack compiler.
+
 ---
 
 ## 📂 Project Structure
