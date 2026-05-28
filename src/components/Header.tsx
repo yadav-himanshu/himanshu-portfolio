@@ -33,31 +33,39 @@ export default function Header() {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   useEffect(() => {
-    let ticking = false;
-
+    // 1. Lightweight scroll listener for scrolled background state (no layout queries!)
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setScrolled(window.scrollY > 10);
-          const scrollPos = window.scrollY + 150;
-          for (const link of NAV_LINKS) {
-            const section = document.getElementById(link.id);
-            if (section) {
-              const { offsetTop, offsetHeight } = section;
-              if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
-                setActiveSection(link.id);
-                break;
-              }
-            }
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    // 2. Highly performant IntersectionObserver to track active page sections asynchronously
+    const observerOptions = {
+      root: null, // Viewport
+      rootMargin: "-25% 0px -55% 0px", // Trigger when section occupies the active view area
+      threshold: 0,
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    NAV_LINKS.forEach((link) => {
+      const section = document.getElementById(link.id);
+      if (section) observer.observe(section);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   // Close menu on outside click

@@ -157,21 +157,15 @@
   display: none;
 }
 
-/* Animated dotted background */
+/* Elegant static dotted background (optimized for scroll performance) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background: radial-gradient(var(--dots) 1px, transparent 1px);
   background-size: var(--dots-size) var(--dots-size);
-  animation: moveDots 30s linear infinite;
   z-index: -1;
   pointer-events: none;
-}
-
-@keyframes moveDots {
-  0%   { background-position: 0 0; }
-  100% { background-position: var(--dots-shift) var(--dots-shift); }
 }
 
 /* CSS orbital rings for Home hero (replaces Framer Motion infinite rotation) */

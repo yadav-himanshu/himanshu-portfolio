@@ -1,50 +1,24 @@
-"use client";
-
 import React from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { skills, tools, type Skill } from "@/data/skills";
 import { getIcon } from "@/lib/iconMap";
 
 function SliderCard({ item }: { item: Skill }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   return (
-    <motion.div
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="min-w-[150px] md:min-w-[180px] flex-shrink-0 p-6 rounded-3xl flex flex-col items-center justify-center transition-all duration-300 glass-panel hover:glass-panel-hover border border-glass-border shadow-md group relative overflow-hidden"
+    <div
+      className="min-w-[150px] md:min-w-[180px] flex-shrink-0 p-6 rounded-3xl flex flex-col items-center justify-center transition-all duration-300 hover:duration-200 glass-panel hover:glass-panel-hover hover:scale-[1.04] hover:-translate-y-1 hover:border-primary/25 border border-glass-border shadow-md group relative overflow-hidden cursor-pointer"
     >
-      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       <div
-        style={{ transform: "translateZ(30px)" }}
         className={`text-5xl mb-3 group-hover:scale-110 transition-transform duration-300 relative z-10 ${item.iconColor}`}
       >
         {getIcon(item.iconKey)}
       </div>
       <div
-        style={{ transform: "translateZ(50px)" }}
-        className="text-sm font-bold text-foreground relative z-10 text-center"
+        className="text-sm font-bold text-foreground relative z-10 text-center transition-transform duration-300 group-hover:translate-y-[-2px]"
       >
         {item.label}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
