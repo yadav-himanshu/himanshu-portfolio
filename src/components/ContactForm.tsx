@@ -68,10 +68,6 @@ export default function ContactForm() {
 
   return (
     <section id="contact" className="relative w-full py-20 px-6 sm:px-12 overflow-hidden">
-      {/* Ambient glows */}
-      <div className="absolute top-1/4 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-
       <div className="max-w-[1100px] mx-auto relative z-10">
 
         {/* Section badge */}

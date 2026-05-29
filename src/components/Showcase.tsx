@@ -225,10 +225,7 @@ function ShowcaseSection({
 }) {
   return (
     <section id={id} className="relative w-full py-20 px-6 sm:px-12 overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 -right-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
-      </div>
+
 
       <div className="max-w-[1100px] mx-auto relative z-10">
         {/* Header */}

@@ -51,6 +51,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <body>
+        {/* Animated background dots wrapper */}
+        <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden" aria-hidden="true">
+          <div className="bg-dots-grid animate-dots" />
+        </div>
+
         {/* Skip to content — keyboard accessibility */}
         <a
           href="#main-content"

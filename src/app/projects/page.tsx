@@ -157,9 +157,6 @@ function ProjectsContent() {
 
   return (
     <section className="py-16 px-6 sm:px-12 max-w-[1100px] mx-auto min-h-screen relative overflow-hidden">
-      {/* Ambient glows */}
-      <div className="absolute top-[10%] left-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-[10%] right-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Top bar */}
       <div className="flex items-center justify-between mb-14 relative z-10">

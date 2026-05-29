@@ -1,35 +1,29 @@
 @import "tailwindcss";
 
+/* ─── Tailwind theme token bridge ─────────────────────────────── */
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-glass: var(--glass-bg);
-  --color-glass-hover: var(--glass-hover);
-  --color-glass-border: var(--glass-border);
-  --color-primary: var(--primary);
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-glass:              var(--glass-bg);
+  --color-glass-hover:        var(--glass-hover);
+  --color-glass-border:       var(--glass-border);
+  --color-primary:            var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--accent);
+  --color-secondary:          var(--accent);
   --color-secondary-foreground: #ffffff;
-  --color-gradient-start: var(--gradient-start);
-  --color-gradient-end: var(--gradient-end);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-border: var(--border);
-  --color-border-soft: var(--border-soft);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --font-inter: var(--font-inter);
-  --font-poppins: var(--font-poppins);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-accent:             var(--accent);
+  --color-accent-foreground:  var(--accent-foreground);
+  --font-inter:               var(--font-inter);
+  --font-poppins:             var(--font-poppins);
 }
 
+/* ─── Utility classes ──────────────────────────────────────────── */
 @utility text-gradient {
-  background: linear-gradient(to right, var(--color-gradient-start), var(--color-gradient-end));
+  background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -37,80 +31,71 @@
 }
 
 @utility glass-panel {
-  background-color: var(--color-glass);
+  background-color: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-glass-border);
+  border: 1px solid var(--glass-border);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
 @utility glass-panel-hover {
-  background-color: var(--color-glass-hover);
+  background-color: var(--glass-hover);
   border-color: var(--accent-border-hover);
   box-shadow: var(--shadow-glow);
 }
 
+/* ─── Design tokens ────────────────────────────────────────────── */
 @layer base {
+  /* Dark mode (default) */
   :root {
-    --background: #121211;
-    --foreground: #e4e4e7;
-    --muted: #1c1c1b;
-    --muted-foreground: #a1a1aa;
-    --card: #1c1c1b;
-    --card-foreground: #e4e4e7;
-    --border: #2a2a29;
-    --border-soft: rgba(20, 184, 166, 0.05);
-    --primary: #14b8a6;
-    --primary-foreground: #121211;
-    --accent: #0d9488;
-    --accent-foreground: #ffffff;
-    --ring: rgba(20, 184, 166, 0.15);
+    --background:          #121211;
+    --foreground:          #e4e4e7;
+    --muted:               #1c1c1b;
+    --muted-foreground:    #a1a1aa;
+    --card:                #1c1c1b;
+    --card-foreground:     #e4e4e7;
+    --border:              #2a2a29;
+    --border-soft:         rgba(20, 184, 166, 0.05);
+    --primary:             #14b8a6;
+    --primary-foreground:  #121211;
+    --accent:              #0d9488;
+    --accent-foreground:   #ffffff;
+    --ring:                rgba(20, 184, 166, 0.15);
     --accent-border-hover: rgba(20, 184, 166, 0.35);
-    --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-    --shadow-soft-md: 0 4px 20px rgba(0, 0, 0, 0.35);
-    --shadow-soft-lg: 0 10px 30px rgba(0, 0, 0, 0.45);
-    --shadow-glow: 0 0 25px rgba(20, 184, 166, 0.18);
-    --glass-bg: rgba(255, 255, 255, 0.02);
-    --glass-hover: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.06);
-    --dots: rgba(255, 255, 255, 0.12);
-    --dots-size: 45px;
-    --dots-shift: 90px;
-    --bg-glow-1: rgba(20, 184, 166, 0.025);
-    --bg-glow-2: rgba(20, 184, 166, 0.018);
-    --gradient-start: #ffffff;
-    --gradient-end: #94a3b8;
+    --shadow-glow:         0 0 25px rgba(20, 184, 166, 0.18);
+    --glass-bg:            rgba(255, 255, 255, 0.02);
+    --glass-hover:         rgba(255, 255, 255, 0.05);
+    --glass-border:        rgba(255, 255, 255, 0.06);
+    --dots:                rgba(255, 255, 255, 0.12);
+    --dots-size:           45px;
+    --gradient-start:      #ffffff;
+    --gradient-end:        #94a3b8;
   }
 
+  /* Light mode */
   html.light {
-    --background: #faf9f6;
-    --foreground: #1a1a19;
-    --muted: #f2f0ea;
-    --muted-foreground: #71716f;
-    --card: #ffffff;
-    --card-foreground: #1a1a19;
-    --border: #e8e6e1;
-    --border-soft: rgba(0, 0, 0, 0.025);
-    --primary: #0d9488;
-    --primary-foreground: #ffffff;
-    --accent: #0f766e;
-    --accent-foreground: #ffffff;
-    --ring: rgba(13, 148, 136, 0.12);
+    --background:          #faf9f6;
+    --foreground:          #1a1a19;
+    --muted:               #f2f0ea;
+    --muted-foreground:    #71716f;
+    --card:                #ffffff;
+    --card-foreground:     #1a1a19;
+    --border:              #e8e6e1;
+    --border-soft:         rgba(0, 0, 0, 0.025);
+    --primary:             #0d9488;
+    --primary-foreground:  #ffffff;
+    --accent:              #0f766e;
+    --accent-foreground:   #ffffff;
+    --ring:                rgba(13, 148, 136, 0.12);
     --accent-border-hover: rgba(13, 148, 136, 0.25);
-    --shadow-soft-sm: 0 2px 8px rgba(0, 0, 0, 0.015);
-    --shadow-soft-md: 0 4px 20px rgba(0, 0, 0, 0.025);
-    --shadow-soft-lg: 0 10px 30px rgba(0, 0, 0, 0.035);
-    --shadow-glow: 0 0 20px rgba(13, 148, 136, 0.08);
-    --glass-bg: rgba(0, 0, 0, 0.015);
-    --glass-hover: rgba(0, 0, 0, 0.03);
-    --glass-border: rgba(0, 0, 0, 0.07);
-    --dots: rgba(13, 148, 136, 0.15);
-    --dots-size: 45px;
-    --dots-shift: 90px;
-    --bg-glow-1: rgba(13, 148, 136, 0.04);
-    --bg-glow-2: rgba(13, 148, 136, 0.02);
-    --gradient-start: #0f172a;
-    --gradient-end: #475569;
+    --shadow-glow:         0 0 20px rgba(13, 148, 136, 0.08);
+    --glass-bg:            rgba(0, 0, 0, 0.015);
+    --glass-hover:         rgba(0, 0, 0, 0.03);
+    --glass-border:        rgba(0, 0, 0, 0.07);
+    --dots:                rgba(13, 148, 136, 0.4);
+    --dots-size:           45px;
+    --gradient-start:      #0f172a;
+    --gradient-end:        #475569;
   }
 
   html {
@@ -121,10 +106,6 @@
     @apply bg-background text-foreground;
     font-family: var(--font-inter), sans-serif;
     transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
-    /* Radial glows without background-attachment:fixed (scroll perf fix) */
-    background-image:
-      radial-gradient(800px 400px at 20% 10%, var(--bg-glow-1, transparent), transparent 60%),
-      radial-gradient(700px 360px at 80% 30%, var(--bg-glow-2, transparent), transparent 60%);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -142,11 +123,8 @@
   }
 }
 
+/* ─── Scrollbar hide ───────────────────────────────────────────── */
 @layer utilities {
-  .surface {
-    @apply bg-card border border-border-soft rounded-2xl shadow-sm;
-  }
-
   .no-scrollbar {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -157,18 +135,28 @@
   display: none;
 }
 
-/* Elegant static dotted background (optimized for scroll performance) */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(var(--dots) 1px, transparent 1px);
+/* ─── Animated background dots ────────────────────────────────── */
+.bg-dots-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% + 90px);
+  height: calc(100% + 90px);
+  background-image: radial-gradient(var(--dots) 1px, transparent 1px);
   background-size: var(--dots-size) var(--dots-size);
-  z-index: -1;
-  pointer-events: none;
+  will-change: transform;
 }
 
-/* CSS orbital rings for Home hero (replaces Framer Motion infinite rotation) */
+@keyframes moveDots {
+  0%   { transform: translate(-45px, -45px); }
+  100% { transform: translate(-90px, -90px); }
+}
+
+.animate-dots {
+  animation: moveDots 8s linear infinite;
+}
+
+/* ─── Orbital rings (Home hero) ────────────────────────────────── */
 .orbital-ring {
   position: absolute;
   border-radius: 50%;
@@ -226,7 +214,7 @@ body::before {
   to   { transform: rotate(-360deg); }
 }
 
-/* Infinite auto-scroll slider (moved from SkillsSlider style jsx) */
+/* ─── Skills slider ────────────────────────────────────────────── */
 .slider {
   --slider-speed: 45s;
   mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
@@ -261,13 +249,4 @@ body::before {
 .slider:hover .is-sliding,
 .slider:hover .is-sliding-reverse {
   animation-play-state: paused;
-}
-
-/* Swiper pagination overrides */
-.swiper-pagination-bullet {
-  @apply bg-muted-foreground opacity-50;
-}
-
-.swiper-pagination-bullet-active {
-  @apply bg-foreground opacity-100;
 }

@@ -51,7 +51,7 @@ function NavCard({ href, icon, title, colorClass }: { href: string; icon: React.
 export default function About() {
   return (
     <section id="about" className="relative w-full py-24 px-6 sm:px-12 overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
+
 
       <div className="max-w-[1100px] mx-auto">
         <div className="grid lg:grid-cols-12 gap-16 items-center">
@@ -109,7 +109,7 @@ export default function About() {
             className="lg:col-span-5 order-1 lg:order-2 relative"
           >
             <div className="relative aspect-square w-full max-w-[500px] mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-[40px] blur-2xl animate-pulse" />
+
               <div className="relative h-full w-full rounded-[40px] overflow-hidden border border-glass-border shadow-2xl glass-panel">
                 <Image
                   src="/about_3d_developer_illustration.png"
@@ -119,8 +119,7 @@ export default function About() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-primary/5 rounded-full blur-lg" />
-              <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-secondary/5 rounded-full blur-lg" />
+
             </div>
           </motion.div>
         </div>

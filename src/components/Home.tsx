@@ -28,9 +28,7 @@ export default function HomeSection() {
       id="home"
       className="min-h-[calc(100vh-100px)] w-full flex items-center justify-center py-12 px-6 sm:px-12 relative overflow-hidden"
     >
-      {/* Ambient glows — CSS only, no JS animation */}
-      <div className="absolute top-[20%] left-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[300px] h-[300px] bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
+
 
       <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center w-full max-w-[1100px] mx-auto z-10">
         {/* Left: Text */}

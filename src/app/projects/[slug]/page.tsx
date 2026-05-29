@@ -12,7 +12,6 @@ function ProjectVisual({ title }: { title: string }) {
   if (title.includes("OpenThoughts")) {
     return (
       <div className="relative w-full h-[320px] flex items-center justify-center">
-        <div className="absolute w-44 h-44 bg-primary/10 rounded-full blur-3xl animate-pulse" />
         <motion.div
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -38,7 +37,6 @@ function ProjectVisual({ title }: { title: string }) {
   if (title.includes("Bombay Facility")) {
     return (
       <div className="relative w-full h-[320px] flex items-center justify-center">
-        <div className="absolute w-44 h-44 bg-sky-500/10 rounded-full blur-3xl" />
         <motion.div
           animate={{ scale: [1, 1.03, 1] }}
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -235,9 +233,8 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <section className="py-16 px-6 sm:px-12 max-w-[1100px] mx-auto min-h-screen relative">
-      <div className="absolute top-[20%] left-[-10%] w-[300px] h-[300px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[20%] right-[-10%] w-[300px] h-[300px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
+    <section className="py-16 px-6 sm:px-12 max-w-[1100px] mx-auto min-h-screen relative overflow-hidden">
+
 
       <div className="flex items-center justify-between mb-16 relative z-10">
         <button
